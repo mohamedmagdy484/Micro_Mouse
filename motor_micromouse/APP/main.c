@@ -40,47 +40,7 @@ int main(void){
 		DC_RIGHT(CW,100);
 		DC_LEFT(CW,100);
 
-		if(IR1_getState() == LOGIC_HIGH){
-			// شمال اوي → لف يمين بقوة
-			DC_LEFT(CW, 150);
-			DC_RIGHT(CW, 50);
-		}
-		else if(IR2_getState() == LOGIC_HIGH){
-			// شمال → لف يمين خفيف
-			DC_LEFT(CW, 130);
-			DC_RIGHT(CW, 80);
-		}
-		else if(IR3_getState() == LOGIC_HIGH){
-			// شمال نص نص
-			DC_LEFT(CW, 120);
-			DC_RIGHT(CW, 100);
-		}
-		else if(IR4_getState() == LOGIC_HIGH || IR4_getState() == LOGIC_HIGH){
-			// نص → امشي عدل
-			DC_LEFT(CW, 120);
-			DC_RIGHT(CW, 120);
-		}
-		else if(IR5_getState() == LOGIC_HIGH){
-			// يمين نص نص
-			DC_LEFT(CW, 100);
-			DC_RIGHT(CW, 120);
-		}
-		else if(IR6_getState() == LOGIC_HIGH){
-			// يمين
-			DC_LEFT(CW, 80);
-			DC_RIGHT(CW, 130);
-		}
-		else if(IR7_getState() == LOGIC_HIGH){
-			// يمين اوي → لف شمال بقوة
-			DC_LEFT(CW, 50);
-			DC_RIGHT(CW, 150);
-		}
-		else{
-			// مفيش حاجة detected → وقف
-			DC_LEFT(STOP, 0);
-			DC_RIGHT(STOP, 0);
-
-
-	}
+	
 }
 }
+
