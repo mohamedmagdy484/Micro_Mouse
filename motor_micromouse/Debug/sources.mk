@@ -23,4 +23,6 @@ SUBDIRS := \
 APP \
 HAL \
 MCAL \
+algo \
+walls_detect \
 
