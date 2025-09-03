@@ -12,8 +12,6 @@
 #define IR1_PIN   PC0
 #define IR2_PIN   PC1
 #define IR3_PIN   PC2
-#define IR4_PIN   PC3
-#define IR5_PIN   PC4
 #define IR6_PIN   PC5
 #define IR7_PIN   PC6
 #define IR8_PIN   PC7
@@ -22,8 +20,6 @@
 void IR1_init(void);
 void IR2_init(void);
 void IR3_init(void);
-void IR4_init(void);
-void IR5_init(void);
 void IR6_init(void);
 void IR7_init(void);
 void IR8_init(void);
@@ -31,8 +27,6 @@ void IR8_init(void);
 uint8 IR1_getState(void);
 uint8 IR2_getState(void);
 uint8 IR3_getState(void);
-uint8 IR4_getState(void);
-uint8 IR5_getState(void);
 uint8 IR6_getState(void);
 uint8 IR7_getState(void);
 uint8 IR8_getState(void);

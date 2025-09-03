@@ -8,14 +8,14 @@
 #ifndef WALLS_DETECT_WALLS_H_
 #define WALLS_DETECT_WALLS_H_
 
- uint8 s1;
- uint8 s2;
- uint8 s3;
- uint8 s4;
- uint8 s5;
- uint8 s6;
- uint8 s7;
- uint8 s8;
+ volatile uint8 s1;
+ volatile uint8 s2;
+ volatile uint8 s3;
+ volatile uint8 s4;
+ volatile uint8 s5;
+ volatile uint8 s6;
+ volatile uint8 s7;
+ volatile uint8 s8;
 
 uint8 right_wall(void);
 uint8 left_wall(void);
