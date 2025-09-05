@@ -4,23 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../MCAL/PWM.c \
-../MCAL/ext_int0.c \
-../MCAL/gpio.c 
+../Micro_Mouse_Services/micro_mouse.c 
 
 OBJS += \
-./MCAL/PWM.o \
-./MCAL/ext_int0.o \
-./MCAL/gpio.o 
+./Micro_Mouse_Services/micro_mouse.o 
 
 C_DEPS += \
-./MCAL/PWM.d \
-./MCAL/ext_int0.d \
-./MCAL/gpio.d 
+./Micro_Mouse_Services/micro_mouse.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-MCAL/%.o: ../MCAL/%.c MCAL/subdir.mk
+Micro_Mouse_Services/%.o: ../Micro_Mouse_Services/%.c Micro_Mouse_Services/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: AVR Compiler'
 	avr-gcc -Wall -g2 -gstabs -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=16000000UL -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"

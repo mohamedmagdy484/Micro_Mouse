@@ -23,5 +23,5 @@ SUBDIRS := \
 APP \
 HAL \
 MCAL \
-walls_detect \
+Micro_Mouse_Services \
 

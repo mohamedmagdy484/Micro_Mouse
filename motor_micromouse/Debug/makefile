@@ -8,7 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include walls_detect/subdir.mk
+-include Micro_Mouse_Services/subdir.mk
 -include MCAL/subdir.mk
 -include HAL/subdir.mk
 -include APP/subdir.mk
