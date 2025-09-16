@@ -61,10 +61,10 @@ int main(void) {
 		}
 
 		// عرض Debug على LCD
-		char buf[17];
-		char *hd[4] = {"X+","Y-","X-","Y+"};
-		snprintf(buf, 17, "X:%2d Y:%2d %s", pos_x, pos_y, hd[heading]);
-		LCD_displayStringRowColumn(1,0,buf);
+		// char buf[17];
+		// char *hd[4] = {"X+","Y-","X-","Y+"};
+		// snprintf(buf, 17, "X:%2d Y:%2d %s", pos_x, pos_y, hd[heading]);
+		// LCD_displayStringRowColumn(1,0,buf);
 
 		_delay_ms(120);
 
@@ -72,7 +72,7 @@ int main(void) {
 		if (((pos_x == 7 || pos_x == 8) && (pos_y == 7 || pos_y == 8)) && maze[pos_x][pos_y] == 0) {
 			// بعد الوصول — ابني المسار القصير بحسب floodfill
 			build_shortest_path(pos_x, pos_y);
-			LCD_displayStringRowColumn(0,0,"      GOAL      ");
+			// LCD_displayStringRowColumn(0,0,"      GOAL      ");
 			goal_reached = 1;
 			break; // اوقف الاستكشاف وابقى منتظر الزر
 		}
@@ -86,3 +86,4 @@ int main(void) {
 	}
 
 }
+
