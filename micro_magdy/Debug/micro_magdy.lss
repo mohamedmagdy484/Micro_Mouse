@@ -1,0 +1,3366 @@
+
+micro_magdy.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000119a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000010  00800060  0000119a  0000122e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          000001c9  00800070  00800070  0000123e  2**0
+                  ALLOC
+  3 .stab         00002c70  00000000  00000000  00001240  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      000014f6  00000000  00000000  00003eb0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+       0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+       4:	0c 94 ba 04 	jmp	0x974	; 0x974 <__vector_1>
+       8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+       c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+      50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+      54:	11 24       	eor	r1, r1
+      56:	1f be       	out	0x3f, r1	; 63
+      58:	cf e5       	ldi	r28, 0x5F	; 95
+      5a:	d8 e0       	ldi	r29, 0x08	; 8
+      5c:	de bf       	out	0x3e, r29	; 62
+      5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+      60:	10 e0       	ldi	r17, 0x00	; 0
+      62:	a0 e6       	ldi	r26, 0x60	; 96
+      64:	b0 e0       	ldi	r27, 0x00	; 0
+      66:	ea e9       	ldi	r30, 0x9A	; 154
+      68:	f1 e1       	ldi	r31, 0x11	; 17
+      6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+      6c:	05 90       	lpm	r0, Z+
+      6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+      70:	a0 37       	cpi	r26, 0x70	; 112
+      72:	b1 07       	cpc	r27, r17
+      74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+      76:	12 e0       	ldi	r17, 0x02	; 2
+      78:	a0 e7       	ldi	r26, 0x70	; 112
+      7a:	b0 e0       	ldi	r27, 0x00	; 0
+      7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+      7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+      80:	a9 33       	cpi	r26, 0x39	; 57
+      82:	b1 07       	cpc	r27, r17
+      84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+      86:	0e 94 65 07 	call	0xeca	; 0xeca <main>
+      8a:	0c 94 cb 08 	jmp	0x1196	; 0x1196 <_exit>
+
+0000008e <__bad_interrupt>:
+      8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <floodfill>:
+ */
+
+
+
+
+void floodfill(void) {
+      92:	8f 92       	push	r8
+      94:	9f 92       	push	r9
+      96:	af 92       	push	r10
+      98:	bf 92       	push	r11
+      9a:	cf 92       	push	r12
+      9c:	df 92       	push	r13
+      9e:	ef 92       	push	r14
+      a0:	ff 92       	push	r15
+      a2:	0f 93       	push	r16
+      a4:	1f 93       	push	r17
+      a6:	df 93       	push	r29
+      a8:	cf 93       	push	r28
+      aa:	cd b7       	in	r28, 0x3d	; 61
+      ac:	de b7       	in	r29, 0x3e	; 62
+      ae:	28 97       	sbiw	r28, 0x08	; 8
+      b0:	0f b6       	in	r0, 0x3f	; 63
+      b2:	f8 94       	cli
+      b4:	de bf       	out	0x3e, r29	; 62
+      b6:	0f be       	out	0x3f, r0	; 63
+      b8:	cd bf       	out	0x3d, r28	; 61
+      ba:	21 e0       	ldi	r18, 0x01	; 1
+      bc:	31 e0       	ldi	r19, 0x01	; 1
+      be:	80 e0       	ldi	r24, 0x00	; 0
+      c0:	90 e0       	ldi	r25, 0x00	; 0
+	for (uint8 x = 0; x < MAZE_SIZE; x++)
+		for (uint8 y = 0; y < MAZE_SIZE; y++)
+			distance[x][y] = 255;
+      c2:	4f ef       	ldi	r20, 0xFF	; 255
+      c4:	0b c0       	rjmp	.+22     	; 0xdc <floodfill+0x4a>
+      c6:	41 93       	st	Z+, r20
+
+
+
+void floodfill(void) {
+	for (uint8 x = 0; x < MAZE_SIZE; x++)
+		for (uint8 y = 0; y < MAZE_SIZE; y++)
+      c8:	e2 17       	cp	r30, r18
+      ca:	f3 07       	cpc	r31, r19
+      cc:	e1 f7       	brne	.-8      	; 0xc6 <floodfill+0x34>
+      ce:	01 96       	adiw	r24, 0x01	; 1
+      d0:	9f 01       	movw	r18, r30
+      d2:	28 5f       	subi	r18, 0xF8	; 248
+      d4:	3f 4f       	sbci	r19, 0xFF	; 255
+
+
+
+
+void floodfill(void) {
+	for (uint8 x = 0; x < MAZE_SIZE; x++)
+      d6:	88 30       	cpi	r24, 0x08	; 8
+      d8:	91 05       	cpc	r25, r1
+      da:	49 f0       	breq	.+18     	; 0xee <floodfill+0x5c>
+      dc:	fc 01       	movw	r30, r24
+      de:	b3 e0       	ldi	r27, 0x03	; 3
+      e0:	ee 0f       	add	r30, r30
+      e2:	ff 1f       	adc	r31, r31
+      e4:	ba 95       	dec	r27
+      e6:	e1 f7       	brne	.-8      	; 0xe0 <floodfill+0x4e>
+      e8:	e7 50       	subi	r30, 0x07	; 7
+      ea:	ff 4f       	sbci	r31, 0xFF	; 255
+      ec:	ec cf       	rjmp	.-40     	; 0xc6 <floodfill+0x34>
+		for (uint8 y = 0; y < MAZE_SIZE; y++)
+			distance[x][y] = 255;
+
+	uint8 center_x[4] = {3,3,4,4};
+      ee:	93 e0       	ldi	r25, 0x03	; 3
+      f0:	99 83       	std	Y+1, r25	; 0x01
+      f2:	9a 83       	std	Y+2, r25	; 0x02
+      f4:	84 e0       	ldi	r24, 0x04	; 4
+      f6:	8b 83       	std	Y+3, r24	; 0x03
+      f8:	8c 83       	std	Y+4, r24	; 0x04
+	uint8 center_y[4] = {3,4,3,4};
+      fa:	9d 83       	std	Y+5, r25	; 0x05
+      fc:	8e 83       	std	Y+6, r24	; 0x06
+      fe:	9f 83       	std	Y+7, r25	; 0x07
+     100:	88 87       	std	Y+8, r24	; 0x08
+     102:	40 e0       	ldi	r20, 0x00	; 0
+     104:	50 e0       	ldi	r21, 0x00	; 0
+	uint16 front = 0, rear = 0;
+
+	for (uint8 i = 0; i < 4; i++) {
+		distance[center_x[i]][center_y[i]] = 0;
+     106:	be 01       	movw	r22, r28
+     108:	6f 5f       	subi	r22, 0xFF	; 255
+     10a:	7f 4f       	sbci	r23, 0xFF	; 255
+     10c:	9e 01       	movw	r18, r28
+     10e:	2b 5f       	subi	r18, 0xFB	; 251
+     110:	3f 4f       	sbci	r19, 0xFF	; 255
+     112:	fb 01       	movw	r30, r22
+     114:	e4 0f       	add	r30, r20
+     116:	f5 1f       	adc	r31, r21
+     118:	80 81       	ld	r24, Z
+     11a:	f9 01       	movw	r30, r18
+     11c:	e4 0f       	add	r30, r20
+     11e:	f5 1f       	adc	r31, r21
+     120:	90 81       	ld	r25, Z
+     122:	e8 2f       	mov	r30, r24
+     124:	f0 e0       	ldi	r31, 0x00	; 0
+     126:	a3 e0       	ldi	r26, 0x03	; 3
+     128:	ee 0f       	add	r30, r30
+     12a:	ff 1f       	adc	r31, r31
+     12c:	aa 95       	dec	r26
+     12e:	e1 f7       	brne	.-8      	; 0x128 <floodfill+0x96>
+     130:	e9 0f       	add	r30, r25
+     132:	f1 1d       	adc	r31, r1
+     134:	e7 50       	subi	r30, 0x07	; 7
+     136:	ff 4f       	sbci	r31, 0xFF	; 255
+     138:	10 82       	st	Z, r1
+		queue_x[rear] = center_x[i];
+     13a:	fa 01       	movw	r30, r20
+     13c:	e7 58       	subi	r30, 0x87	; 135
+     13e:	fe 4f       	sbci	r31, 0xFE	; 254
+     140:	80 83       	st	Z, r24
+		queue_y[rear] = center_y[i];
+     142:	fa 01       	movw	r30, r20
+     144:	e7 54       	subi	r30, 0x47	; 71
+     146:	ff 4f       	sbci	r31, 0xFF	; 255
+     148:	90 83       	st	Z, r25
+		rear++;
+     14a:	4f 5f       	subi	r20, 0xFF	; 255
+     14c:	5f 4f       	sbci	r21, 0xFF	; 255
+
+	uint8 center_x[4] = {3,3,4,4};
+	uint8 center_y[4] = {3,4,3,4};
+	uint16 front = 0, rear = 0;
+
+	for (uint8 i = 0; i < 4; i++) {
+     14e:	44 30       	cpi	r20, 0x04	; 4
+     150:	51 05       	cpc	r21, r1
+     152:	f9 f6       	brne	.-66     	; 0x112 <floodfill+0x80>
+     154:	cc 24       	eor	r12, r12
+     156:	dd 24       	eor	r13, r13
+		queue_y[rear] = center_y[i];
+		rear++;
+	}
+
+	while (front < rear) {
+		uint8 x = queue_x[front];
+     158:	f6 01       	movw	r30, r12
+     15a:	e7 58       	subi	r30, 0x87	; 135
+     15c:	fe 4f       	sbci	r31, 0xFE	; 254
+     15e:	90 81       	ld	r25, Z
+		uint8 y = queue_y[front];
+     160:	f6 01       	movw	r30, r12
+     162:	e7 54       	subi	r30, 0x47	; 71
+     164:	ff 4f       	sbci	r31, 0xFF	; 255
+     166:	80 81       	ld	r24, Z
+     168:	ee 24       	eor	r14, r14
+     16a:	ff 24       	eor	r15, r15
+		front++;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+     16c:	89 2e       	mov	r8, r25
+     16e:	99 24       	eor	r9, r9
+			int ny = y + dy[dir];
+     170:	a8 2e       	mov	r10, r24
+     172:	bb 24       	eor	r11, r11
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE &&
+					maze[nx][ny] == 0 && distance[nx][ny] == 255) {
+				distance[nx][ny] = distance[x][y] + 1;
+     174:	84 01       	movw	r16, r8
+     176:	93 e0       	ldi	r25, 0x03	; 3
+     178:	00 0f       	add	r16, r16
+     17a:	11 1f       	adc	r17, r17
+     17c:	9a 95       	dec	r25
+     17e:	e1 f7       	brne	.-8      	; 0x178 <floodfill+0xe6>
+     180:	0a 0d       	add	r16, r10
+     182:	1b 1d       	adc	r17, r11
+     184:	07 50       	subi	r16, 0x07	; 7
+     186:	1f 4f       	sbci	r17, 0xFF	; 255
+	while (front < rear) {
+		uint8 x = queue_x[front];
+		uint8 y = queue_y[front];
+		front++;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+     188:	f7 01       	movw	r30, r14
+     18a:	e0 5a       	subi	r30, 0xA0	; 160
+     18c:	ff 4f       	sbci	r31, 0xFF	; 255
+     18e:	a0 81       	ld	r26, Z
+     190:	b1 81       	ldd	r27, Z+1	; 0x01
+     192:	a8 0d       	add	r26, r8
+     194:	b9 1d       	adc	r27, r9
+			int ny = y + dy[dir];
+     196:	f7 01       	movw	r30, r14
+     198:	e8 59       	subi	r30, 0x98	; 152
+     19a:	ff 4f       	sbci	r31, 0xFF	; 255
+     19c:	01 90       	ld	r0, Z+
+     19e:	f0 81       	ld	r31, Z
+     1a0:	e0 2d       	mov	r30, r0
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE &&
+     1a2:	a8 30       	cpi	r26, 0x08	; 8
+     1a4:	b1 05       	cpc	r27, r1
+     1a6:	58 f5       	brcc	.+86     	; 0x1fe <floodfill+0x16c>
+		uint8 x = queue_x[front];
+		uint8 y = queue_y[front];
+		front++;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+			int ny = y + dy[dir];
+     1a8:	b5 01       	movw	r22, r10
+     1aa:	6e 0f       	add	r22, r30
+     1ac:	7f 1f       	adc	r23, r31
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE &&
+     1ae:	77 fd       	sbrc	r23, 7
+     1b0:	26 c0       	rjmp	.+76     	; 0x1fe <floodfill+0x16c>
+     1b2:	68 30       	cpi	r22, 0x08	; 8
+     1b4:	71 05       	cpc	r23, r1
+     1b6:	1c f5       	brge	.+70     	; 0x1fe <floodfill+0x16c>
+     1b8:	9d 01       	movw	r18, r26
+     1ba:	83 e0       	ldi	r24, 0x03	; 3
+     1bc:	22 0f       	add	r18, r18
+     1be:	33 1f       	adc	r19, r19
+     1c0:	8a 95       	dec	r24
+     1c2:	e1 f7       	brne	.-8      	; 0x1bc <floodfill+0x12a>
+     1c4:	26 0f       	add	r18, r22
+     1c6:	37 1f       	adc	r19, r23
+     1c8:	f9 01       	movw	r30, r18
+     1ca:	e7 5c       	subi	r30, 0xC7	; 199
+     1cc:	fe 4f       	sbci	r31, 0xFE	; 254
+     1ce:	80 81       	ld	r24, Z
+     1d0:	88 23       	and	r24, r24
+     1d2:	a9 f4       	brne	.+42     	; 0x1fe <floodfill+0x16c>
+     1d4:	27 50       	subi	r18, 0x07	; 7
+     1d6:	3f 4f       	sbci	r19, 0xFF	; 255
+     1d8:	f9 01       	movw	r30, r18
+     1da:	80 81       	ld	r24, Z
+     1dc:	8f 3f       	cpi	r24, 0xFF	; 255
+     1de:	79 f4       	brne	.+30     	; 0x1fe <floodfill+0x16c>
+					maze[nx][ny] == 0 && distance[nx][ny] == 255) {
+				distance[nx][ny] = distance[x][y] + 1;
+     1e0:	f8 01       	movw	r30, r16
+     1e2:	80 81       	ld	r24, Z
+     1e4:	8f 5f       	subi	r24, 0xFF	; 255
+     1e6:	f9 01       	movw	r30, r18
+     1e8:	80 83       	st	Z, r24
+				queue_x[rear] = nx;
+     1ea:	fa 01       	movw	r30, r20
+     1ec:	e7 58       	subi	r30, 0x87	; 135
+     1ee:	fe 4f       	sbci	r31, 0xFE	; 254
+     1f0:	a0 83       	st	Z, r26
+				queue_y[rear] = ny;
+     1f2:	fa 01       	movw	r30, r20
+     1f4:	e7 54       	subi	r30, 0x47	; 71
+     1f6:	ff 4f       	sbci	r31, 0xFF	; 255
+     1f8:	60 83       	st	Z, r22
+				rear++;
+     1fa:	4f 5f       	subi	r20, 0xFF	; 255
+     1fc:	5f 4f       	sbci	r21, 0xFF	; 255
+     1fe:	82 e0       	ldi	r24, 0x02	; 2
+     200:	90 e0       	ldi	r25, 0x00	; 0
+     202:	e8 0e       	add	r14, r24
+     204:	f9 1e       	adc	r15, r25
+
+	while (front < rear) {
+		uint8 x = queue_x[front];
+		uint8 y = queue_y[front];
+		front++;
+		for (uint8 dir = 0; dir < 4; dir++) {
+     206:	98 e0       	ldi	r25, 0x08	; 8
+     208:	e9 16       	cp	r14, r25
+     20a:	f1 04       	cpc	r15, r1
+     20c:	09 f0       	breq	.+2      	; 0x210 <floodfill+0x17e>
+     20e:	bc cf       	rjmp	.-136    	; 0x188 <floodfill+0xf6>
+	}
+
+	while (front < rear) {
+		uint8 x = queue_x[front];
+		uint8 y = queue_y[front];
+		front++;
+     210:	08 94       	sec
+     212:	c1 1c       	adc	r12, r1
+     214:	d1 1c       	adc	r13, r1
+		queue_x[rear] = center_x[i];
+		queue_y[rear] = center_y[i];
+		rear++;
+	}
+
+	while (front < rear) {
+     216:	c4 16       	cp	r12, r20
+     218:	d5 06       	cpc	r13, r21
+     21a:	08 f4       	brcc	.+2      	; 0x21e <floodfill+0x18c>
+     21c:	9d cf       	rjmp	.-198    	; 0x158 <floodfill+0xc6>
+				queue_y[rear] = ny;
+				rear++;
+			}
+		}
+	}
+}
+     21e:	28 96       	adiw	r28, 0x08	; 8
+     220:	0f b6       	in	r0, 0x3f	; 63
+     222:	f8 94       	cli
+     224:	de bf       	out	0x3e, r29	; 62
+     226:	0f be       	out	0x3f, r0	; 63
+     228:	cd bf       	out	0x3d, r28	; 61
+     22a:	cf 91       	pop	r28
+     22c:	df 91       	pop	r29
+     22e:	1f 91       	pop	r17
+     230:	0f 91       	pop	r16
+     232:	ff 90       	pop	r15
+     234:	ef 90       	pop	r14
+     236:	df 90       	pop	r13
+     238:	cf 90       	pop	r12
+     23a:	bf 90       	pop	r11
+     23c:	af 90       	pop	r10
+     23e:	9f 90       	pop	r9
+     240:	8f 90       	pop	r8
+     242:	08 95       	ret
+
+00000244 <choose_next_direction>:
+ * -------------------------------- Choose Next Direction -------------------------------
+ *=======================================================================================
+ */
+
+
+uint8 choose_next_direction(void) {
+     244:	ff 92       	push	r15
+     246:	0f 93       	push	r16
+     248:	1f 93       	push	r17
+     24a:	cf 93       	push	r28
+     24c:	df 93       	push	r29
+	uint8 best_dir = heading;
+     24e:	40 91 76 00 	lds	r20, 0x0076
+	uint8 min_dist = 255;
+	uint8 found = 0;
+
+	uint8 back_dir = (heading + 2) % 4; // الاتجاه العكسي
+     252:	4e 5f       	subi	r20, 0xFE	; 254
+     254:	74 2f       	mov	r23, r20
+     256:	73 70       	andi	r23, 0x03	; 3
+     258:	42 50       	subi	r20, 0x02	; 2
+
+	for (uint8 dir = 0; dir < 4; dir++) {
+		int nx = pos_x + dx[dir];
+     25a:	c0 91 72 00 	lds	r28, 0x0072
+     25e:	d0 91 73 00 	lds	r29, 0x0073
+		int ny = pos_y + dy[dir];
+     262:	00 91 74 00 	lds	r16, 0x0074
+     266:	10 91 75 00 	lds	r17, 0x0075
+     26a:	6f ef       	ldi	r22, 0xFF	; 255
+     26c:	ff 24       	eor	r15, r15
+     26e:	50 e0       	ldi	r21, 0x00	; 0
+     270:	20 e0       	ldi	r18, 0x00	; 0
+     272:	30 e0       	ldi	r19, 0x00	; 0
+	uint8 found = 0;
+
+	uint8 back_dir = (heading + 2) % 4; // الاتجاه العكسي
+
+	for (uint8 dir = 0; dir < 4; dir++) {
+		int nx = pos_x + dx[dir];
+     274:	f9 01       	movw	r30, r18
+     276:	e0 5a       	subi	r30, 0xA0	; 160
+     278:	ff 4f       	sbci	r31, 0xFF	; 255
+     27a:	80 81       	ld	r24, Z
+     27c:	91 81       	ldd	r25, Z+1	; 0x01
+     27e:	8c 0f       	add	r24, r28
+     280:	9d 1f       	adc	r25, r29
+		int ny = pos_y + dy[dir];
+     282:	f9 01       	movw	r30, r18
+     284:	e8 59       	subi	r30, 0x98	; 152
+     286:	ff 4f       	sbci	r31, 0xFF	; 255
+     288:	01 90       	ld	r0, Z+
+     28a:	f0 81       	ld	r31, Z
+     28c:	e0 2d       	mov	r30, r0
+
+		if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     28e:	88 30       	cpi	r24, 0x08	; 8
+     290:	91 05       	cpc	r25, r1
+     292:	00 f5       	brcc	.+64     	; 0x2d4 <choose_next_direction+0x90>
+
+	uint8 back_dir = (heading + 2) % 4; // الاتجاه العكسي
+
+	for (uint8 dir = 0; dir < 4; dir++) {
+		int nx = pos_x + dx[dir];
+		int ny = pos_y + dy[dir];
+     294:	e0 0f       	add	r30, r16
+     296:	f1 1f       	adc	r31, r17
+
+		if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     298:	f7 fd       	sbrc	r31, 7
+     29a:	1c c0       	rjmp	.+56     	; 0x2d4 <choose_next_direction+0x90>
+     29c:	e8 30       	cpi	r30, 0x08	; 8
+     29e:	f1 05       	cpc	r31, r1
+     2a0:	cc f4       	brge	.+50     	; 0x2d4 <choose_next_direction+0x90>
+			if (maze[nx][ny] == 0 && distance[nx][ny] < min_dist) {
+     2a2:	dc 01       	movw	r26, r24
+     2a4:	93 e0       	ldi	r25, 0x03	; 3
+     2a6:	aa 0f       	add	r26, r26
+     2a8:	bb 1f       	adc	r27, r27
+     2aa:	9a 95       	dec	r25
+     2ac:	e1 f7       	brne	.-8      	; 0x2a6 <choose_next_direction+0x62>
+     2ae:	ae 0f       	add	r26, r30
+     2b0:	bf 1f       	adc	r27, r31
+     2b2:	fd 01       	movw	r30, r26
+     2b4:	e7 5c       	subi	r30, 0xC7	; 199
+     2b6:	fe 4f       	sbci	r31, 0xFE	; 254
+     2b8:	80 81       	ld	r24, Z
+     2ba:	88 23       	and	r24, r24
+     2bc:	59 f4       	brne	.+22     	; 0x2d4 <choose_next_direction+0x90>
+     2be:	a7 50       	subi	r26, 0x07	; 7
+     2c0:	bf 4f       	sbci	r27, 0xFF	; 255
+     2c2:	ec 91       	ld	r30, X
+     2c4:	e6 17       	cp	r30, r22
+     2c6:	30 f4       	brcc	.+12     	; 0x2d4 <choose_next_direction+0x90>
+				if (dir == back_dir) {
+     2c8:	57 17       	cp	r21, r23
+     2ca:	21 f0       	breq	.+8      	; 0x2d4 <choose_next_direction+0x90>
+					// متخطيش الاتجاه الخلفي دلوقتي
+					continue;
+     2cc:	45 2f       	mov	r20, r21
+     2ce:	ff 24       	eor	r15, r15
+     2d0:	f3 94       	inc	r15
+     2d2:	01 c0       	rjmp	.+2      	; 0x2d6 <choose_next_direction+0x92>
+     2d4:	e6 2f       	mov	r30, r22
+	uint8 min_dist = 255;
+	uint8 found = 0;
+
+	uint8 back_dir = (heading + 2) % 4; // الاتجاه العكسي
+
+	for (uint8 dir = 0; dir < 4; dir++) {
+     2d6:	5f 5f       	subi	r21, 0xFF	; 255
+     2d8:	2e 5f       	subi	r18, 0xFE	; 254
+     2da:	3f 4f       	sbci	r19, 0xFF	; 255
+     2dc:	54 30       	cpi	r21, 0x04	; 4
+     2de:	11 f0       	breq	.+4      	; 0x2e4 <choose_next_direction+0xa0>
+     2e0:	6e 2f       	mov	r22, r30
+     2e2:	c8 cf       	rjmp	.-112    	; 0x274 <choose_next_direction+0x30>
+			}
+		}
+	}
+
+	// لو مفيش أي اتجاه صالح غير الخلف → يبقى ارجع للخلف
+	if (!found) {
+     2e4:	ff 20       	and	r15, r15
+     2e6:	71 f5       	brne	.+92     	; 0x344 <choose_next_direction+0x100>
+		int nx = pos_x + dx[back_dir];
+     2e8:	e7 2f       	mov	r30, r23
+     2ea:	f0 e0       	ldi	r31, 0x00	; 0
+     2ec:	ee 0f       	add	r30, r30
+     2ee:	ff 1f       	adc	r31, r31
+     2f0:	df 01       	movw	r26, r30
+     2f2:	a0 5a       	subi	r26, 0xA0	; 160
+     2f4:	bf 4f       	sbci	r27, 0xFF	; 255
+     2f6:	8d 91       	ld	r24, X+
+     2f8:	9c 91       	ld	r25, X
+     2fa:	8c 0f       	add	r24, r28
+     2fc:	9d 1f       	adc	r25, r29
+		int ny = pos_y + dy[back_dir];
+     2fe:	e8 59       	subi	r30, 0x98	; 152
+     300:	ff 4f       	sbci	r31, 0xFF	; 255
+     302:	01 90       	ld	r0, Z+
+     304:	f0 81       	ld	r31, Z
+     306:	e0 2d       	mov	r30, r0
+		if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     308:	88 30       	cpi	r24, 0x08	; 8
+     30a:	91 05       	cpc	r25, r1
+     30c:	d8 f4       	brcc	.+54     	; 0x344 <choose_next_direction+0x100>
+	}
+
+	// لو مفيش أي اتجاه صالح غير الخلف → يبقى ارجع للخلف
+	if (!found) {
+		int nx = pos_x + dx[back_dir];
+		int ny = pos_y + dy[back_dir];
+     30e:	e0 0f       	add	r30, r16
+     310:	f1 1f       	adc	r31, r17
+		if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     312:	f7 fd       	sbrc	r31, 7
+     314:	17 c0       	rjmp	.+46     	; 0x344 <choose_next_direction+0x100>
+     316:	e8 30       	cpi	r30, 0x08	; 8
+     318:	f1 05       	cpc	r31, r1
+     31a:	a4 f4       	brge	.+40     	; 0x344 <choose_next_direction+0x100>
+			if (maze[nx][ny] == 0 && distance[nx][ny] < 255) {
+     31c:	dc 01       	movw	r26, r24
+     31e:	13 e0       	ldi	r17, 0x03	; 3
+     320:	aa 0f       	add	r26, r26
+     322:	bb 1f       	adc	r27, r27
+     324:	1a 95       	dec	r17
+     326:	e1 f7       	brne	.-8      	; 0x320 <choose_next_direction+0xdc>
+     328:	ae 0f       	add	r26, r30
+     32a:	bf 1f       	adc	r27, r31
+     32c:	fd 01       	movw	r30, r26
+     32e:	e7 5c       	subi	r30, 0xC7	; 199
+     330:	fe 4f       	sbci	r31, 0xFE	; 254
+     332:	80 81       	ld	r24, Z
+     334:	88 23       	and	r24, r24
+     336:	31 f4       	brne	.+12     	; 0x344 <choose_next_direction+0x100>
+     338:	a7 50       	subi	r26, 0x07	; 7
+     33a:	bf 4f       	sbci	r27, 0xFF	; 255
+     33c:	8c 91       	ld	r24, X
+     33e:	8f 3f       	cpi	r24, 0xFF	; 255
+     340:	09 f0       	breq	.+2      	; 0x344 <choose_next_direction+0x100>
+     342:	47 2f       	mov	r20, r23
+			}
+		}
+	}
+
+	return best_dir;
+}
+     344:	84 2f       	mov	r24, r20
+     346:	df 91       	pop	r29
+     348:	cf 91       	pop	r28
+     34a:	1f 91       	pop	r17
+     34c:	0f 91       	pop	r16
+     34e:	ff 90       	pop	r15
+     350:	08 95       	ret
+
+00000352 <build_shortest_path>:
+}
+/*=======================================================================================
+ * -------------------------------- Short Path ------------------------------------------
+ *=======================================================================================
+ */
+void build_shortest_path(int goal_x, int goal_y) {
+     352:	2f 92       	push	r2
+     354:	3f 92       	push	r3
+     356:	4f 92       	push	r4
+     358:	5f 92       	push	r5
+     35a:	6f 92       	push	r6
+     35c:	7f 92       	push	r7
+     35e:	8f 92       	push	r8
+     360:	9f 92       	push	r9
+     362:	bf 92       	push	r11
+     364:	cf 92       	push	r12
+     366:	df 92       	push	r13
+     368:	ef 92       	push	r14
+     36a:	ff 92       	push	r15
+     36c:	0f 93       	push	r16
+     36e:	1f 93       	push	r17
+     370:	df 93       	push	r29
+     372:	cf 93       	push	r28
+     374:	cd b7       	in	r28, 0x3d	; 61
+     376:	de b7       	in	r29, 0x3e	; 62
+     378:	c2 50       	subi	r28, 0x02	; 2
+     37a:	d1 40       	sbci	r29, 0x01	; 1
+     37c:	0f b6       	in	r0, 0x3f	; 63
+     37e:	f8 94       	cli
+     380:	de bf       	out	0x3e, r29	; 62
+     382:	0f be       	out	0x3f, r0	; 63
+     384:	cd bf       	out	0x3d, r28	; 61
+     386:	cf 5f       	subi	r28, 0xFF	; 255
+     388:	de 4f       	sbci	r29, 0xFE	; 254
+     38a:	99 83       	std	Y+1, r25	; 0x01
+     38c:	88 83       	st	Y, r24
+     38e:	c1 50       	subi	r28, 0x01	; 1
+     390:	d1 40       	sbci	r29, 0x01	; 1
+     392:	1b 01       	movw	r2, r22
+	path_len = 0;
+     394:	10 92 78 00 	sts	0x0078, r1
+     398:	10 92 77 00 	sts	0x0077, r1
+	int cx = 0, cy = 0; // نقطة البداية (0,0)
+	int gx = goal_x, gy = goal_y;
+
+	// لو الهدف unreachable
+	if (distance[gx][gy] == 255) return;
+     39c:	fc 01       	movw	r30, r24
+     39e:	33 e0       	ldi	r19, 0x03	; 3
+     3a0:	ee 0f       	add	r30, r30
+     3a2:	ff 1f       	adc	r31, r31
+     3a4:	3a 95       	dec	r19
+     3a6:	e1 f7       	brne	.-8      	; 0x3a0 <build_shortest_path+0x4e>
+     3a8:	e6 0f       	add	r30, r22
+     3aa:	f7 1f       	adc	r31, r23
+     3ac:	e7 50       	subi	r30, 0x07	; 7
+     3ae:	ff 4f       	sbci	r31, 0xFF	; 255
+     3b0:	80 81       	ld	r24, Z
+     3b2:	8f 3f       	cpi	r24, 0xFF	; 255
+     3b4:	09 f4       	brne	.+2      	; 0x3b8 <build_shortest_path+0x66>
+     3b6:	97 c0       	rjmp	.+302    	; 0x4e6 <build_shortest_path+0x194>
+     3b8:	4e 01       	movw	r8, r28
+     3ba:	08 94       	sec
+     3bc:	81 1c       	adc	r8, r1
+     3be:	91 1c       	adc	r9, r1
+     3c0:	21 e8       	ldi	r18, 0x81	; 129
+     3c2:	c2 2e       	mov	r12, r18
+     3c4:	d1 2c       	mov	r13, r1
+     3c6:	cc 0e       	add	r12, r28
+     3c8:	dd 1e       	adc	r13, r29
+     3ca:	24 01       	movw	r4, r8
+     3cc:	36 01       	movw	r6, r12
+     3ce:	ee 24       	eor	r14, r14
+     3d0:	ff 24       	eor	r15, r15
+     3d2:	00 e0       	ldi	r16, 0x00	; 0
+     3d4:	10 e0       	ldi	r17, 0x00	; 0
+     3d6:	60 e0       	ldi	r22, 0x00	; 0
+     3d8:	70 e0       	ldi	r23, 0x00	; 0
+     3da:	59 c0       	rjmp	.+178    	; 0x48e <build_shortest_path+0x13c>
+     3dc:	bb 24       	eor	r11, r11
+     3de:	40 e0       	ldi	r20, 0x00	; 0
+     3e0:	50 e0       	ldi	r21, 0x00	; 0
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+			int ny = y + dy[dir];
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+				if (distance[nx][ny] < distance[x][y]) {
+     3e2:	98 01       	movw	r18, r16
+     3e4:	93 e0       	ldi	r25, 0x03	; 3
+     3e6:	22 0f       	add	r18, r18
+     3e8:	33 1f       	adc	r19, r19
+     3ea:	9a 95       	dec	r25
+     3ec:	e1 f7       	brne	.-8      	; 0x3e6 <build_shortest_path+0x94>
+     3ee:	26 0f       	add	r18, r22
+     3f0:	37 1f       	adc	r19, r23
+     3f2:	27 50       	subi	r18, 0x07	; 7
+     3f4:	3f 4f       	sbci	r19, 0xFF	; 255
+
+	int x = cx, y = cy;
+	while (!(x == gx && y == gy)) {
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+     3f6:	fa 01       	movw	r30, r20
+     3f8:	e0 5a       	subi	r30, 0xA0	; 160
+     3fa:	ff 4f       	sbci	r31, 0xFF	; 255
+     3fc:	a0 81       	ld	r26, Z
+     3fe:	b1 81       	ldd	r27, Z+1	; 0x01
+     400:	a0 0f       	add	r26, r16
+     402:	b1 1f       	adc	r27, r17
+			int ny = y + dy[dir];
+     404:	fa 01       	movw	r30, r20
+     406:	e8 59       	subi	r30, 0x98	; 152
+     408:	ff 4f       	sbci	r31, 0xFF	; 255
+     40a:	01 90       	ld	r0, Z+
+     40c:	f0 81       	ld	r31, Z
+     40e:	e0 2d       	mov	r30, r0
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     410:	a8 30       	cpi	r26, 0x08	; 8
+     412:	b1 05       	cpc	r27, r1
+     414:	a8 f4       	brcc	.+42     	; 0x440 <build_shortest_path+0xee>
+	int x = cx, y = cy;
+	while (!(x == gx && y == gy)) {
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+			int ny = y + dy[dir];
+     416:	e6 0f       	add	r30, r22
+     418:	f7 1f       	adc	r31, r23
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     41a:	f7 fd       	sbrc	r31, 7
+     41c:	11 c0       	rjmp	.+34     	; 0x440 <build_shortest_path+0xee>
+     41e:	e8 30       	cpi	r30, 0x08	; 8
+     420:	f1 05       	cpc	r31, r1
+     422:	74 f4       	brge	.+28     	; 0x440 <build_shortest_path+0xee>
+				if (distance[nx][ny] < distance[x][y]) {
+     424:	83 e0       	ldi	r24, 0x03	; 3
+     426:	aa 0f       	add	r26, r26
+     428:	bb 1f       	adc	r27, r27
+     42a:	8a 95       	dec	r24
+     42c:	e1 f7       	brne	.-8      	; 0x426 <build_shortest_path+0xd4>
+     42e:	ae 0f       	add	r26, r30
+     430:	bf 1f       	adc	r27, r31
+     432:	a7 50       	subi	r26, 0x07	; 7
+     434:	bf 4f       	sbci	r27, 0xFF	; 255
+     436:	9c 91       	ld	r25, X
+     438:	d9 01       	movw	r26, r18
+     43a:	8c 91       	ld	r24, X
+     43c:	98 17       	cp	r25, r24
+     43e:	38 f0       	brcs	.+14     	; 0x44e <build_shortest_path+0xfc>
+	int temp_path_len = 0;
+
+	int x = cx, y = cy;
+	while (!(x == gx && y == gy)) {
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+     440:	b3 94       	inc	r11
+     442:	4e 5f       	subi	r20, 0xFE	; 254
+     444:	5f 4f       	sbci	r21, 0xFF	; 255
+     446:	b4 e0       	ldi	r27, 0x04	; 4
+     448:	bb 16       	cp	r11, r27
+     44a:	a9 f6       	brne	.-86     	; 0x3f6 <build_shortest_path+0xa4>
+     44c:	2e c0       	rjmp	.+92     	; 0x4aa <build_shortest_path+0x158>
+				}
+			}
+		}
+		if (next_dir == 0xFF) break; // لا يوجد طريق
+
+		temp_path_x[temp_path_len] = x + dx[next_dir];
+     44e:	eb 2d       	mov	r30, r11
+     450:	f0 e0       	ldi	r31, 0x00	; 0
+     452:	ee 0f       	add	r30, r30
+     454:	ff 1f       	adc	r31, r31
+     456:	df 01       	movw	r26, r30
+     458:	a0 5a       	subi	r26, 0xA0	; 160
+     45a:	bf 4f       	sbci	r27, 0xFF	; 255
+     45c:	8d 91       	ld	r24, X+
+     45e:	9c 91       	ld	r25, X
+     460:	08 0f       	add	r16, r24
+     462:	19 1f       	adc	r17, r25
+     464:	d2 01       	movw	r26, r4
+     466:	0d 93       	st	X+, r16
+     468:	1d 93       	st	X+, r17
+     46a:	2d 01       	movw	r4, r26
+		temp_path_y[temp_path_len] = y + dy[next_dir];
+     46c:	e8 59       	subi	r30, 0x98	; 152
+     46e:	ff 4f       	sbci	r31, 0xFF	; 255
+     470:	80 81       	ld	r24, Z
+     472:	91 81       	ldd	r25, Z+1	; 0x01
+     474:	68 0f       	add	r22, r24
+     476:	79 1f       	adc	r23, r25
+     478:	f3 01       	movw	r30, r6
+     47a:	61 93       	st	Z+, r22
+     47c:	71 93       	st	Z+, r23
+     47e:	3f 01       	movw	r6, r30
+		path_dir[temp_path_len] = next_dir;
+     480:	f7 01       	movw	r30, r14
+     482:	e7 54       	subi	r30, 0x47	; 71
+     484:	fe 4f       	sbci	r31, 0xFE	; 254
+     486:	b0 82       	st	Z, r11
+		temp_path_len++;
+     488:	08 94       	sec
+     48a:	e1 1c       	adc	r14, r1
+     48c:	f1 1c       	adc	r15, r1
+	int temp_path_x[MAX_PATH];
+	int temp_path_y[MAX_PATH];
+	int temp_path_len = 0;
+
+	int x = cx, y = cy;
+	while (!(x == gx && y == gy)) {
+     48e:	cf 5f       	subi	r28, 0xFF	; 255
+     490:	de 4f       	sbci	r29, 0xFE	; 254
+     492:	88 81       	ld	r24, Y
+     494:	99 81       	ldd	r25, Y+1	; 0x01
+     496:	c1 50       	subi	r28, 0x01	; 1
+     498:	d1 40       	sbci	r29, 0x01	; 1
+     49a:	08 17       	cp	r16, r24
+     49c:	19 07       	cpc	r17, r25
+     49e:	09 f0       	breq	.+2      	; 0x4a2 <build_shortest_path+0x150>
+     4a0:	9d cf       	rjmp	.-198    	; 0x3dc <build_shortest_path+0x8a>
+     4a2:	62 15       	cp	r22, r2
+     4a4:	73 05       	cpc	r23, r3
+     4a6:	09 f0       	breq	.+2      	; 0x4aa <build_shortest_path+0x158>
+     4a8:	99 cf       	rjmp	.-206    	; 0x3dc <build_shortest_path+0x8a>
+
+		x += dx[next_dir];
+		y += dy[next_dir];
+	}
+
+	path_len = temp_path_len;
+     4aa:	f0 92 78 00 	sts	0x0078, r15
+     4ae:	e0 92 77 00 	sts	0x0077, r14
+     4b2:	20 e0       	ldi	r18, 0x00	; 0
+     4b4:	30 e0       	ldi	r19, 0x00	; 0
+     4b6:	14 c0       	rjmp	.+40     	; 0x4e0 <build_shortest_path+0x18e>
+	for (int i = 0; i < path_len; i++) {
+		path_x[i] = temp_path_x[i];
+     4b8:	f9 01       	movw	r30, r18
+     4ba:	e7 58       	subi	r30, 0x87	; 135
+     4bc:	ff 4f       	sbci	r31, 0xFF	; 255
+     4be:	d4 01       	movw	r26, r8
+     4c0:	8c 91       	ld	r24, X
+     4c2:	80 83       	st	Z, r24
+		path_y[i] = temp_path_y[i];
+     4c4:	f9 01       	movw	r30, r18
+     4c6:	e7 50       	subi	r30, 0x07	; 7
+     4c8:	fe 4f       	sbci	r31, 0xFE	; 254
+     4ca:	d6 01       	movw	r26, r12
+     4cc:	8c 91       	ld	r24, X
+     4ce:	80 83       	st	Z, r24
+		x += dx[next_dir];
+		y += dy[next_dir];
+	}
+
+	path_len = temp_path_len;
+	for (int i = 0; i < path_len; i++) {
+     4d0:	2f 5f       	subi	r18, 0xFF	; 255
+     4d2:	3f 4f       	sbci	r19, 0xFF	; 255
+     4d4:	e2 e0       	ldi	r30, 0x02	; 2
+     4d6:	f0 e0       	ldi	r31, 0x00	; 0
+     4d8:	8e 0e       	add	r8, r30
+     4da:	9f 1e       	adc	r9, r31
+     4dc:	ce 0e       	add	r12, r30
+     4de:	df 1e       	adc	r13, r31
+     4e0:	2e 15       	cp	r18, r14
+     4e2:	3f 05       	cpc	r19, r15
+     4e4:	48 f3       	brcs	.-46     	; 0x4b8 <build_shortest_path+0x166>
+		path_x[i] = temp_path_x[i];
+		path_y[i] = temp_path_y[i];
+	}
+}
+     4e6:	ce 5f       	subi	r28, 0xFE	; 254
+     4e8:	de 4f       	sbci	r29, 0xFE	; 254
+     4ea:	0f b6       	in	r0, 0x3f	; 63
+     4ec:	f8 94       	cli
+     4ee:	de bf       	out	0x3e, r29	; 62
+     4f0:	0f be       	out	0x3f, r0	; 63
+     4f2:	cd bf       	out	0x3d, r28	; 61
+     4f4:	cf 91       	pop	r28
+     4f6:	df 91       	pop	r29
+     4f8:	1f 91       	pop	r17
+     4fa:	0f 91       	pop	r16
+     4fc:	ff 90       	pop	r15
+     4fe:	ef 90       	pop	r14
+     500:	df 90       	pop	r13
+     502:	cf 90       	pop	r12
+     504:	bf 90       	pop	r11
+     506:	9f 90       	pop	r9
+     508:	8f 90       	pop	r8
+     50a:	7f 90       	pop	r7
+     50c:	6f 90       	pop	r6
+     50e:	5f 90       	pop	r5
+     510:	4f 90       	pop	r4
+     512:	3f 90       	pop	r3
+     514:	2f 90       	pop	r2
+     516:	08 95       	ret
+
+00000518 <build_shortest_path_reverse>:
+void build_shortest_path_reverse(int start_x, int start_y) {
+     518:	4f 92       	push	r4
+     51a:	5f 92       	push	r5
+     51c:	6f 92       	push	r6
+     51e:	7f 92       	push	r7
+     520:	8f 92       	push	r8
+     522:	9f 92       	push	r9
+     524:	af 92       	push	r10
+     526:	bf 92       	push	r11
+     528:	df 92       	push	r13
+     52a:	ef 92       	push	r14
+     52c:	ff 92       	push	r15
+     52e:	0f 93       	push	r16
+     530:	1f 93       	push	r17
+     532:	df 93       	push	r29
+     534:	cf 93       	push	r28
+     536:	cd b7       	in	r28, 0x3d	; 61
+     538:	de b7       	in	r29, 0x3e	; 62
+     53a:	c0 50       	subi	r28, 0x00	; 0
+     53c:	d1 40       	sbci	r29, 0x01	; 1
+     53e:	0f b6       	in	r0, 0x3f	; 63
+     540:	f8 94       	cli
+     542:	de bf       	out	0x3e, r29	; 62
+     544:	0f be       	out	0x3f, r0	; 63
+     546:	cd bf       	out	0x3d, r28	; 61
+     548:	48 2f       	mov	r20, r24
+	path_len = 0;
+     54a:	10 92 78 00 	sts	0x0078, r1
+     54e:	10 92 77 00 	sts	0x0077, r1
+	int gx = 0, gy = 0; // هدف الرجوع هو البداية
+	int x = start_x, y = start_y;
+
+	if (distance[gx][gy] == 255) return;
+     552:	80 91 f9 00 	lds	r24, 0x00F9
+     556:	8f 3f       	cpi	r24, 0xFF	; 255
+     558:	09 f4       	brne	.+2      	; 0x55c <build_shortest_path_reverse+0x44>
+     55a:	91 c0       	rjmp	.+290    	; 0x67e <build_shortest_path_reverse+0x166>
+     55c:	4e 01       	movw	r8, r28
+     55e:	08 94       	sec
+     560:	81 1c       	adc	r8, r1
+     562:	91 1c       	adc	r9, r1
+     564:	21 e8       	ldi	r18, 0x81	; 129
+     566:	a2 2e       	mov	r10, r18
+     568:	b1 2c       	mov	r11, r1
+     56a:	ac 0e       	add	r10, r28
+     56c:	bd 1e       	adc	r11, r29
+     56e:	24 2f       	mov	r18, r20
+     570:	39 2f       	mov	r19, r25
+     572:	c9 01       	movw	r24, r18
+     574:	8c 01       	movw	r16, r24
+     576:	24 01       	movw	r4, r8
+     578:	35 01       	movw	r6, r10
+     57a:	ee 24       	eor	r14, r14
+     57c:	ff 24       	eor	r15, r15
+     57e:	59 c0       	rjmp	.+178    	; 0x632 <build_shortest_path_reverse+0x11a>
+     580:	dd 24       	eor	r13, r13
+     582:	40 e0       	ldi	r20, 0x00	; 0
+     584:	50 e0       	ldi	r21, 0x00	; 0
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+			int ny = y + dy[dir];
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+				if (distance[nx][ny] < distance[x][y]) {
+     586:	98 01       	movw	r18, r16
+     588:	93 e0       	ldi	r25, 0x03	; 3
+     58a:	22 0f       	add	r18, r18
+     58c:	33 1f       	adc	r19, r19
+     58e:	9a 95       	dec	r25
+     590:	e1 f7       	brne	.-8      	; 0x58a <build_shortest_path_reverse+0x72>
+     592:	26 0f       	add	r18, r22
+     594:	37 1f       	adc	r19, r23
+     596:	27 50       	subi	r18, 0x07	; 7
+     598:	3f 4f       	sbci	r19, 0xFF	; 255
+	int temp_path_len = 0;
+
+	while (!(x == gx && y == gy)) {
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+     59a:	fa 01       	movw	r30, r20
+     59c:	e0 5a       	subi	r30, 0xA0	; 160
+     59e:	ff 4f       	sbci	r31, 0xFF	; 255
+     5a0:	a0 81       	ld	r26, Z
+     5a2:	b1 81       	ldd	r27, Z+1	; 0x01
+     5a4:	a0 0f       	add	r26, r16
+     5a6:	b1 1f       	adc	r27, r17
+			int ny = y + dy[dir];
+     5a8:	fa 01       	movw	r30, r20
+     5aa:	e8 59       	subi	r30, 0x98	; 152
+     5ac:	ff 4f       	sbci	r31, 0xFF	; 255
+     5ae:	01 90       	ld	r0, Z+
+     5b0:	f0 81       	ld	r31, Z
+     5b2:	e0 2d       	mov	r30, r0
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     5b4:	a8 30       	cpi	r26, 0x08	; 8
+     5b6:	b1 05       	cpc	r27, r1
+     5b8:	a8 f4       	brcc	.+42     	; 0x5e4 <build_shortest_path_reverse+0xcc>
+
+	while (!(x == gx && y == gy)) {
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+			int nx = x + dx[dir];
+			int ny = y + dy[dir];
+     5ba:	e6 0f       	add	r30, r22
+     5bc:	f7 1f       	adc	r31, r23
+			if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE) {
+     5be:	f7 fd       	sbrc	r31, 7
+     5c0:	11 c0       	rjmp	.+34     	; 0x5e4 <build_shortest_path_reverse+0xcc>
+     5c2:	e8 30       	cpi	r30, 0x08	; 8
+     5c4:	f1 05       	cpc	r31, r1
+     5c6:	74 f4       	brge	.+28     	; 0x5e4 <build_shortest_path_reverse+0xcc>
+				if (distance[nx][ny] < distance[x][y]) {
+     5c8:	83 e0       	ldi	r24, 0x03	; 3
+     5ca:	aa 0f       	add	r26, r26
+     5cc:	bb 1f       	adc	r27, r27
+     5ce:	8a 95       	dec	r24
+     5d0:	e1 f7       	brne	.-8      	; 0x5ca <build_shortest_path_reverse+0xb2>
+     5d2:	ae 0f       	add	r26, r30
+     5d4:	bf 1f       	adc	r27, r31
+     5d6:	a7 50       	subi	r26, 0x07	; 7
+     5d8:	bf 4f       	sbci	r27, 0xFF	; 255
+     5da:	9c 91       	ld	r25, X
+     5dc:	d9 01       	movw	r26, r18
+     5de:	8c 91       	ld	r24, X
+     5e0:	98 17       	cp	r25, r24
+     5e2:	38 f0       	brcs	.+14     	; 0x5f2 <build_shortest_path_reverse+0xda>
+	int temp_path_y[MAX_PATH];
+	int temp_path_len = 0;
+
+	while (!(x == gx && y == gy)) {
+		uint8 next_dir = 0xFF;
+		for (uint8 dir = 0; dir < 4; dir++) {
+     5e4:	d3 94       	inc	r13
+     5e6:	4e 5f       	subi	r20, 0xFE	; 254
+     5e8:	5f 4f       	sbci	r21, 0xFF	; 255
+     5ea:	b4 e0       	ldi	r27, 0x04	; 4
+     5ec:	db 16       	cp	r13, r27
+     5ee:	a9 f6       	brne	.-86     	; 0x59a <build_shortest_path_reverse+0x82>
+     5f0:	28 c0       	rjmp	.+80     	; 0x642 <build_shortest_path_reverse+0x12a>
+				}
+			}
+		}
+		if (next_dir == 0xFF) break;
+
+		temp_path_x[temp_path_len] = x + dx[next_dir];
+     5f2:	ed 2d       	mov	r30, r13
+     5f4:	f0 e0       	ldi	r31, 0x00	; 0
+     5f6:	ee 0f       	add	r30, r30
+     5f8:	ff 1f       	adc	r31, r31
+     5fa:	df 01       	movw	r26, r30
+     5fc:	a0 5a       	subi	r26, 0xA0	; 160
+     5fe:	bf 4f       	sbci	r27, 0xFF	; 255
+     600:	8d 91       	ld	r24, X+
+     602:	9c 91       	ld	r25, X
+     604:	08 0f       	add	r16, r24
+     606:	19 1f       	adc	r17, r25
+     608:	d2 01       	movw	r26, r4
+     60a:	0d 93       	st	X+, r16
+     60c:	1d 93       	st	X+, r17
+     60e:	2d 01       	movw	r4, r26
+		temp_path_y[temp_path_len] = y + dy[next_dir];
+     610:	e8 59       	subi	r30, 0x98	; 152
+     612:	ff 4f       	sbci	r31, 0xFF	; 255
+     614:	80 81       	ld	r24, Z
+     616:	91 81       	ldd	r25, Z+1	; 0x01
+     618:	68 0f       	add	r22, r24
+     61a:	79 1f       	adc	r23, r25
+     61c:	f3 01       	movw	r30, r6
+     61e:	61 93       	st	Z+, r22
+     620:	71 93       	st	Z+, r23
+     622:	3f 01       	movw	r6, r30
+		path_dir[temp_path_len] = next_dir;
+     624:	f7 01       	movw	r30, r14
+     626:	e7 54       	subi	r30, 0x47	; 71
+     628:	fe 4f       	sbci	r31, 0xFE	; 254
+     62a:	d0 82       	st	Z, r13
+		temp_path_len++;
+     62c:	08 94       	sec
+     62e:	e1 1c       	adc	r14, r1
+     630:	f1 1c       	adc	r15, r1
+
+	int temp_path_x[MAX_PATH];
+	int temp_path_y[MAX_PATH];
+	int temp_path_len = 0;
+
+	while (!(x == gx && y == gy)) {
+     632:	01 15       	cp	r16, r1
+     634:	11 05       	cpc	r17, r1
+     636:	09 f0       	breq	.+2      	; 0x63a <build_shortest_path_reverse+0x122>
+     638:	a3 cf       	rjmp	.-186    	; 0x580 <build_shortest_path_reverse+0x68>
+     63a:	61 15       	cp	r22, r1
+     63c:	71 05       	cpc	r23, r1
+     63e:	09 f0       	breq	.+2      	; 0x642 <build_shortest_path_reverse+0x12a>
+     640:	9f cf       	rjmp	.-194    	; 0x580 <build_shortest_path_reverse+0x68>
+
+		x += dx[next_dir];
+		y += dy[next_dir];
+	}
+
+	path_len = temp_path_len;
+     642:	f0 92 78 00 	sts	0x0078, r15
+     646:	e0 92 77 00 	sts	0x0077, r14
+     64a:	20 e0       	ldi	r18, 0x00	; 0
+     64c:	30 e0       	ldi	r19, 0x00	; 0
+     64e:	14 c0       	rjmp	.+40     	; 0x678 <build_shortest_path_reverse+0x160>
+	for (int i = 0; i < path_len; i++) {
+		path_x[i] = temp_path_x[i];
+     650:	f9 01       	movw	r30, r18
+     652:	e7 58       	subi	r30, 0x87	; 135
+     654:	ff 4f       	sbci	r31, 0xFF	; 255
+     656:	d4 01       	movw	r26, r8
+     658:	8c 91       	ld	r24, X
+     65a:	80 83       	st	Z, r24
+		path_y[i] = temp_path_y[i];
+     65c:	f9 01       	movw	r30, r18
+     65e:	e7 50       	subi	r30, 0x07	; 7
+     660:	fe 4f       	sbci	r31, 0xFE	; 254
+     662:	d5 01       	movw	r26, r10
+     664:	8c 91       	ld	r24, X
+     666:	80 83       	st	Z, r24
+		x += dx[next_dir];
+		y += dy[next_dir];
+	}
+
+	path_len = temp_path_len;
+	for (int i = 0; i < path_len; i++) {
+     668:	2f 5f       	subi	r18, 0xFF	; 255
+     66a:	3f 4f       	sbci	r19, 0xFF	; 255
+     66c:	e2 e0       	ldi	r30, 0x02	; 2
+     66e:	f0 e0       	ldi	r31, 0x00	; 0
+     670:	8e 0e       	add	r8, r30
+     672:	9f 1e       	adc	r9, r31
+     674:	ae 0e       	add	r10, r30
+     676:	bf 1e       	adc	r11, r31
+     678:	2e 15       	cp	r18, r14
+     67a:	3f 05       	cpc	r19, r15
+     67c:	48 f3       	brcs	.-46     	; 0x650 <build_shortest_path_reverse+0x138>
+		path_x[i] = temp_path_x[i];
+		path_y[i] = temp_path_y[i];
+	}
+}
+     67e:	c0 50       	subi	r28, 0x00	; 0
+     680:	df 4f       	sbci	r29, 0xFF	; 255
+     682:	0f b6       	in	r0, 0x3f	; 63
+     684:	f8 94       	cli
+     686:	de bf       	out	0x3e, r29	; 62
+     688:	0f be       	out	0x3f, r0	; 63
+     68a:	cd bf       	out	0x3d, r28	; 61
+     68c:	cf 91       	pop	r28
+     68e:	df 91       	pop	r29
+     690:	1f 91       	pop	r17
+     692:	0f 91       	pop	r16
+     694:	ff 90       	pop	r15
+     696:	ef 90       	pop	r14
+     698:	df 90       	pop	r13
+     69a:	bf 90       	pop	r11
+     69c:	af 90       	pop	r10
+     69e:	9f 90       	pop	r9
+     6a0:	8f 90       	pop	r8
+     6a2:	7f 90       	pop	r7
+     6a4:	6f 90       	pop	r6
+     6a6:	5f 90       	pop	r5
+     6a8:	4f 90       	pop	r4
+     6aa:	08 95       	ret
+
+000006ac <rotate_to_dir>:
+ *=======================================================================================
+ */
+
+void rotate_to_dir(uint8 target_dir) {
+	// حساب الفرق (0 = already aligned, 1 = +90deg (right), 3 = -90deg (left), 2 = 180deg)
+	uint8 diff = (target_dir + 4 - heading) % 4;
+     6ac:	90 91 76 00 	lds	r25, 0x0076
+     6b0:	24 e0       	ldi	r18, 0x04	; 4
+     6b2:	30 e0       	ldi	r19, 0x00	; 0
+     6b4:	29 1b       	sub	r18, r25
+     6b6:	31 09       	sbc	r19, r1
+     6b8:	a9 01       	movw	r20, r18
+     6ba:	48 0f       	add	r20, r24
+     6bc:	51 1d       	adc	r21, r1
+     6be:	ca 01       	movw	r24, r20
+     6c0:	64 e0       	ldi	r22, 0x04	; 4
+     6c2:	70 e0       	ldi	r23, 0x00	; 0
+     6c4:	0e 94 a4 08 	call	0x1148	; 0x1148 <__divmodhi4>
+	if (diff == 0) return;
+     6c8:	88 23       	and	r24, r24
+     6ca:	09 f4       	brne	.+2      	; 0x6ce <rotate_to_dir+0x22>
+     6cc:	9c c0       	rjmp	.+312    	; 0x806 <rotate_to_dir+0x15a>
+
+	if (diff == 1) {
+     6ce:	81 30       	cpi	r24, 0x01	; 1
+     6d0:	b1 f4       	brne	.+44     	; 0x6fe <rotate_to_dir+0x52>
+		// دور يمين
+		DC_RIGHT(A_CW, 100);
+     6d2:	82 e0       	ldi	r24, 0x02	; 2
+     6d4:	64 e6       	ldi	r22, 0x64	; 100
+     6d6:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+		DC_LEFT(CW, 100);
+     6da:	81 e0       	ldi	r24, 0x01	; 1
+     6dc:	64 e6       	ldi	r22, 0x64	; 100
+     6de:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     6e2:	80 e8       	ldi	r24, 0x80	; 128
+     6e4:	9c e0       	ldi	r25, 0x0C	; 12
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+     6e6:	20 e9       	ldi	r18, 0x90	; 144
+     6e8:	31 e0       	ldi	r19, 0x01	; 1
+     6ea:	f9 01       	movw	r30, r18
+     6ec:	31 97       	sbiw	r30, 0x01	; 1
+     6ee:	f1 f7       	brne	.-4      	; 0x6ec <rotate_to_dir+0x40>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     6f0:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     6f2:	d9 f7       	brne	.-10     	; 0x6ea <rotate_to_dir+0x3e>
+
+		_delay_ms(320); // زمن الدوران: عدّل حسب تجاربك
+		heading = (heading + 1) % 4;
+     6f4:	80 91 76 00 	lds	r24, 0x0076
+     6f8:	90 e0       	ldi	r25, 0x00	; 0
+     6fa:	01 96       	adiw	r24, 0x01	; 1
+     6fc:	6f c0       	rjmp	.+222    	; 0x7dc <rotate_to_dir+0x130>
+	} else if (diff == 3) {
+     6fe:	83 30       	cpi	r24, 0x03	; 3
+     700:	b1 f4       	brne	.+44     	; 0x72e <rotate_to_dir+0x82>
+		// دور شمال (left)
+		DC_RIGHT(CW, 100);
+     702:	81 e0       	ldi	r24, 0x01	; 1
+     704:	64 e6       	ldi	r22, 0x64	; 100
+     706:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+		DC_LEFT(A_CW, 100);
+     70a:	82 e0       	ldi	r24, 0x02	; 2
+     70c:	64 e6       	ldi	r22, 0x64	; 100
+     70e:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     712:	80 e8       	ldi	r24, 0x80	; 128
+     714:	9c e0       	ldi	r25, 0x0C	; 12
+     716:	20 e9       	ldi	r18, 0x90	; 144
+     718:	31 e0       	ldi	r19, 0x01	; 1
+     71a:	f9 01       	movw	r30, r18
+     71c:	31 97       	sbiw	r30, 0x01	; 1
+     71e:	f1 f7       	brne	.-4      	; 0x71c <rotate_to_dir+0x70>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     720:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     722:	d9 f7       	brne	.-10     	; 0x71a <rotate_to_dir+0x6e>
+
+		_delay_ms(320);
+		heading = (heading + 3) % 4;
+     724:	80 91 76 00 	lds	r24, 0x0076
+     728:	90 e0       	ldi	r25, 0x00	; 0
+     72a:	03 96       	adiw	r24, 0x03	; 3
+     72c:	57 c0       	rjmp	.+174    	; 0x7dc <rotate_to_dir+0x130>
+	} else { // diff == 2
+		if(wsl == 0){
+     72e:	80 91 70 00 	lds	r24, 0x0070
+     732:	88 23       	and	r24, r24
+     734:	09 f0       	breq	.+2      	; 0x738 <rotate_to_dir+0x8c>
+     736:	3c c0       	rjmp	.+120    	; 0x7b0 <rotate_to_dir+0x104>
+			DC_RIGHT(CW, 100);
+     738:	81 e0       	ldi	r24, 0x01	; 1
+     73a:	64 e6       	ldi	r22, 0x64	; 100
+     73c:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+			DC_LEFT(A_CW, 100);
+     740:	82 e0       	ldi	r24, 0x02	; 2
+     742:	64 e6       	ldi	r22, 0x64	; 100
+     744:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     748:	80 e2       	ldi	r24, 0x20	; 32
+     74a:	9c e1       	ldi	r25, 0x1C	; 28
+     74c:	20 e9       	ldi	r18, 0x90	; 144
+     74e:	31 e0       	ldi	r19, 0x01	; 1
+     750:	f9 01       	movw	r30, r18
+     752:	31 97       	sbiw	r30, 0x01	; 1
+     754:	f1 f7       	brne	.-4      	; 0x752 <rotate_to_dir+0xa6>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     756:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     758:	d9 f7       	brne	.-10     	; 0x750 <rotate_to_dir+0xa4>
+			_delay_ms(720);
+			heading = (heading + 2) % 4;
+     75a:	80 91 76 00 	lds	r24, 0x0076
+     75e:	90 e0       	ldi	r25, 0x00	; 0
+     760:	02 96       	adiw	r24, 0x02	; 2
+     762:	83 70       	andi	r24, 0x03	; 3
+     764:	90 70       	andi	r25, 0x00	; 0
+     766:	80 93 76 00 	sts	0x0076, r24
+
+			// بعد الدوران 180 ارجع للخلف عشان تلمس الحيطة
+			// حركة للخلف بنفس وقت الحركة للأمام (عدّل لو محتاج)
+			DC_LEFT(A_CW, 100);  // عكس اتجاه الموتورين
+     76a:	82 e0       	ldi	r24, 0x02	; 2
+     76c:	64 e6       	ldi	r22, 0x64	; 100
+     76e:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+			DC_RIGHT(A_CW, 100);
+     772:	82 e0       	ldi	r24, 0x02	; 2
+     774:	64 e6       	ldi	r22, 0x64	; 100
+     776:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+     77a:	8e e1       	ldi	r24, 0x1E	; 30
+     77c:	94 e1       	ldi	r25, 0x14	; 20
+     77e:	20 e9       	ldi	r18, 0x90	; 144
+     780:	31 e0       	ldi	r19, 0x01	; 1
+     782:	f9 01       	movw	r30, r18
+     784:	31 97       	sbiw	r30, 0x01	; 1
+     786:	f1 f7       	brne	.-4      	; 0x784 <rotate_to_dir+0xd8>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     788:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     78a:	d9 f7       	brne	.-10     	; 0x782 <rotate_to_dir+0xd6>
+			_delay_ms(515); // نفس زمن move_forward_one_cell
+			DC_RIGHT(STOP, 0);
+     78c:	80 e0       	ldi	r24, 0x00	; 0
+     78e:	60 e0       	ldi	r22, 0x00	; 0
+     790:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+			DC_LEFT(STOP, 0);
+     794:	80 e0       	ldi	r24, 0x00	; 0
+     796:	60 e0       	ldi	r22, 0x00	; 0
+     798:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     79c:	80 ed       	ldi	r24, 0xD0	; 208
+     79e:	97 e0       	ldi	r25, 0x07	; 7
+     7a0:	20 e9       	ldi	r18, 0x90	; 144
+     7a2:	31 e0       	ldi	r19, 0x01	; 1
+     7a4:	f9 01       	movw	r30, r18
+     7a6:	31 97       	sbiw	r30, 0x01	; 1
+     7a8:	f1 f7       	brne	.-4      	; 0x7a6 <rotate_to_dir+0xfa>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     7aa:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     7ac:	d9 f7       	brne	.-10     	; 0x7a4 <rotate_to_dir+0xf8>
+     7ae:	1a c0       	rjmp	.+52     	; 0x7e4 <rotate_to_dir+0x138>
+			_delay_ms(200);
+		}
+		else if(wsl==1){
+     7b0:	81 30       	cpi	r24, 0x01	; 1
+     7b2:	c1 f4       	brne	.+48     	; 0x7e4 <rotate_to_dir+0x138>
+			DC_RIGHT(CW, 100);
+     7b4:	64 e6       	ldi	r22, 0x64	; 100
+     7b6:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+			DC_LEFT(A_CW, 100);
+     7ba:	82 e0       	ldi	r24, 0x02	; 2
+     7bc:	64 e6       	ldi	r22, 0x64	; 100
+     7be:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     7c2:	80 e2       	ldi	r24, 0x20	; 32
+     7c4:	9c e1       	ldi	r25, 0x1C	; 28
+     7c6:	20 e9       	ldi	r18, 0x90	; 144
+     7c8:	31 e0       	ldi	r19, 0x01	; 1
+     7ca:	f9 01       	movw	r30, r18
+     7cc:	31 97       	sbiw	r30, 0x01	; 1
+     7ce:	f1 f7       	brne	.-4      	; 0x7cc <rotate_to_dir+0x120>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     7d0:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     7d2:	d9 f7       	brne	.-10     	; 0x7ca <rotate_to_dir+0x11e>
+			_delay_ms(720);
+			heading = (heading + 2) % 4;
+     7d4:	80 91 76 00 	lds	r24, 0x0076
+     7d8:	90 e0       	ldi	r25, 0x00	; 0
+     7da:	02 96       	adiw	r24, 0x02	; 2
+     7dc:	83 70       	andi	r24, 0x03	; 3
+     7de:	90 70       	andi	r25, 0x00	; 0
+     7e0:	80 93 76 00 	sts	0x0076, r24
+		}
+	}
+	// اوقف الموتور بعد دوران
+	DC_RIGHT(STOP, 0);
+     7e4:	80 e0       	ldi	r24, 0x00	; 0
+     7e6:	60 e0       	ldi	r22, 0x00	; 0
+     7e8:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+	DC_LEFT(STOP, 0);
+     7ec:	80 e0       	ldi	r24, 0x00	; 0
+     7ee:	60 e0       	ldi	r22, 0x00	; 0
+     7f0:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     7f4:	8c ed       	ldi	r24, 0xDC	; 220
+     7f6:	95 e0       	ldi	r25, 0x05	; 5
+     7f8:	20 e9       	ldi	r18, 0x90	; 144
+     7fa:	31 e0       	ldi	r19, 0x01	; 1
+     7fc:	f9 01       	movw	r30, r18
+     7fe:	31 97       	sbiw	r30, 0x01	; 1
+     800:	f1 f7       	brne	.-4      	; 0x7fe <rotate_to_dir+0x152>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     802:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     804:	d9 f7       	brne	.-10     	; 0x7fc <rotate_to_dir+0x150>
+     806:	08 95       	ret
+
+00000808 <move_forward_one_cell>:
+/*=======================================================================================
+ * -------------------------------- Move 1 Cell Forward ---------------------------------
+ *=======================================================================================
+ */
+
+void move_forward_one_cell(void) {
+     808:	ef 92       	push	r14
+     80a:	ff 92       	push	r15
+     80c:	1f 93       	push	r17
+     80e:	cf 93       	push	r28
+     810:	df 93       	push	r29
+     812:	c0 e0       	ldi	r28, 0x00	; 0
+     814:	d0 e0       	ldi	r29, 0x00	; 0
+     816:	40 e9       	ldi	r20, 0x90	; 144
+     818:	e4 2e       	mov	r14, r20
+     81a:	41 e0       	ldi	r20, 0x01	; 1
+     81c:	f4 2e       	mov	r15, r20
+	uint16 step_time = 30; // زمن كل تصحيح (بالـ ms). تقدر تعدلها حسب السرعة والدقة.
+	uint16 required_time = 515; // زمن عبور خلية واحدة
+
+	// ابدأ الحركة للأمام
+	while (total_time < required_time) {
+		uint8 left_state = IR_FRONT_LEFT_getState();
+     81e:	0e 94 58 07 	call	0xeb0	; 0xeb0 <IR_FRONT_LEFT_getState>
+     822:	18 2f       	mov	r17, r24
+		uint8 right_state = IR_FRONT_RIGHT_getState();
+     824:	0e 94 5e 07 	call	0xebc	; 0xebc <IR_FRONT_RIGHT_getState>
+
+		if (left_state == LAQT && right_state == MS_LAQT) {
+     828:	11 23       	and	r17, r17
+     82a:	41 f4       	brne	.+16     	; 0x83c <move_forward_one_cell+0x34>
+     82c:	81 30       	cpi	r24, 0x01	; 1
+     82e:	31 f4       	brne	.+12     	; 0x83c <move_forward_one_cell+0x34>
+			// قريب من اليمين → عدل شوية شمال
+			DC_LEFT(CW, 100);
+     830:	64 e6       	ldi	r22, 0x64	; 100
+     832:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+			DC_RIGHT(CW, 80); // قلل سرعة اليمين شوية
+     836:	81 e0       	ldi	r24, 0x01	; 1
+     838:	60 e5       	ldi	r22, 0x50	; 80
+     83a:	0d c0       	rjmp	.+26     	; 0x856 <move_forward_one_cell+0x4e>
+		} else if (right_state == LAQT && left_state ==MS_LAQT) {
+     83c:	88 23       	and	r24, r24
+     83e:	29 f4       	brne	.+10     	; 0x84a <move_forward_one_cell+0x42>
+     840:	11 30       	cpi	r17, 0x01	; 1
+     842:	19 f4       	brne	.+6      	; 0x84a <move_forward_one_cell+0x42>
+			// قريب من الشمال → عدل شوية يمين
+			DC_LEFT(CW, 80); // قلل سرعة الشمال شوية
+     844:	81 e0       	ldi	r24, 0x01	; 1
+     846:	60 e5       	ldi	r22, 0x50	; 80
+     848:	02 c0       	rjmp	.+4      	; 0x84e <move_forward_one_cell+0x46>
+			DC_RIGHT(CW, 100);
+		} else {
+			// في النص تقريباً
+			DC_LEFT(CW, 100);
+     84a:	81 e0       	ldi	r24, 0x01	; 1
+     84c:	64 e6       	ldi	r22, 0x64	; 100
+     84e:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+			DC_RIGHT(CW, 100);
+     852:	81 e0       	ldi	r24, 0x01	; 1
+     854:	64 e6       	ldi	r22, 0x64	; 100
+     856:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+     85a:	8c e2       	ldi	r24, 0x2C	; 44
+     85c:	91 e0       	ldi	r25, 0x01	; 1
+     85e:	f7 01       	movw	r30, r14
+     860:	31 97       	sbiw	r30, 0x01	; 1
+     862:	f1 f7       	brne	.-4      	; 0x860 <__stack+0x1>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     864:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     866:	d9 f7       	brne	.-10     	; 0x85e <move_forward_one_cell+0x56>
+		}
+
+		_delay_ms(step_time);
+		total_time += step_time;
+     868:	6e 96       	adiw	r28, 0x1e	; 30
+	uint16 total_time = 0;
+	uint16 step_time = 30; // زمن كل تصحيح (بالـ ms). تقدر تعدلها حسب السرعة والدقة.
+	uint16 required_time = 515; // زمن عبور خلية واحدة
+
+	// ابدأ الحركة للأمام
+	while (total_time < required_time) {
+     86a:	82 e0       	ldi	r24, 0x02	; 2
+     86c:	cc 31       	cpi	r28, 0x1C	; 28
+     86e:	d8 07       	cpc	r29, r24
+     870:	b1 f6       	brne	.-84     	; 0x81e <move_forward_one_cell+0x16>
+		_delay_ms(step_time);
+		total_time += step_time;
+	}
+
+	// وقف الموتور بعد عبور الخلية
+	DC_RIGHT(STOP, 0);
+     872:	80 e0       	ldi	r24, 0x00	; 0
+     874:	60 e0       	ldi	r22, 0x00	; 0
+     876:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+	DC_LEFT(STOP, 0);
+     87a:	80 e0       	ldi	r24, 0x00	; 0
+     87c:	60 e0       	ldi	r22, 0x00	; 0
+     87e:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     882:	80 ed       	ldi	r24, 0xD0	; 208
+     884:	97 e0       	ldi	r25, 0x07	; 7
+     886:	20 e9       	ldi	r18, 0x90	; 144
+     888:	31 e0       	ldi	r19, 0x01	; 1
+     88a:	f9 01       	movw	r30, r18
+     88c:	31 97       	sbiw	r30, 0x01	; 1
+     88e:	f1 f7       	brne	.-4      	; 0x88c <__stack+0x2d>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     890:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     892:	d9 f7       	brne	.-10     	; 0x88a <__stack+0x2b>
+	_delay_ms(200);
+
+	// حدث الإحداثيات
+	pos_x += dx[heading];
+     894:	e0 91 76 00 	lds	r30, 0x0076
+     898:	f0 e0       	ldi	r31, 0x00	; 0
+     89a:	ee 0f       	add	r30, r30
+     89c:	ff 1f       	adc	r31, r31
+     89e:	df 01       	movw	r26, r30
+     8a0:	a0 5a       	subi	r26, 0xA0	; 160
+     8a2:	bf 4f       	sbci	r27, 0xFF	; 255
+     8a4:	80 91 72 00 	lds	r24, 0x0072
+     8a8:	90 91 73 00 	lds	r25, 0x0073
+     8ac:	2d 91       	ld	r18, X+
+     8ae:	3c 91       	ld	r19, X
+     8b0:	82 0f       	add	r24, r18
+     8b2:	93 1f       	adc	r25, r19
+     8b4:	90 93 73 00 	sts	0x0073, r25
+     8b8:	80 93 72 00 	sts	0x0072, r24
+	pos_y += dy[heading];
+     8bc:	e8 59       	subi	r30, 0x98	; 152
+     8be:	ff 4f       	sbci	r31, 0xFF	; 255
+     8c0:	80 91 74 00 	lds	r24, 0x0074
+     8c4:	90 91 75 00 	lds	r25, 0x0075
+     8c8:	20 81       	ld	r18, Z
+     8ca:	31 81       	ldd	r19, Z+1	; 0x01
+     8cc:	82 0f       	add	r24, r18
+     8ce:	93 1f       	adc	r25, r19
+     8d0:	90 93 75 00 	sts	0x0075, r25
+     8d4:	80 93 74 00 	sts	0x0074, r24
+}
+     8d8:	df 91       	pop	r29
+     8da:	cf 91       	pop	r28
+     8dc:	1f 91       	pop	r17
+     8de:	ff 90       	pop	r15
+     8e0:	ef 90       	pop	r14
+     8e2:	08 95       	ret
+
+000008e4 <replay_path>:
+}
+/*=======================================================================================
+ * -------------------------------- Replay Path -----------------------------------------
+ *=======================================================================================
+ */
+void replay_path(void) {
+     8e4:	0f 93       	push	r16
+     8e6:	1f 93       	push	r17
+     8e8:	cf 93       	push	r28
+     8ea:	df 93       	push	r29
+     8ec:	88 eb       	ldi	r24, 0xB8	; 184
+     8ee:	9b e0       	ldi	r25, 0x0B	; 11
+     8f0:	20 e9       	ldi	r18, 0x90	; 144
+     8f2:	31 e0       	ldi	r19, 0x01	; 1
+     8f4:	f9 01       	movw	r30, r18
+     8f6:	31 97       	sbiw	r30, 0x01	; 1
+     8f8:	f1 f7       	brne	.-4      	; 0x8f6 <replay_path+0x12>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     8fa:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     8fc:	d9 f7       	brne	.-10     	; 0x8f4 <replay_path+0x10>
+	_delay_ms(300);
+	PORTB^=(1<<1);
+     8fe:	88 b3       	in	r24, 0x18	; 24
+     900:	92 e0       	ldi	r25, 0x02	; 2
+     902:	89 27       	eor	r24, r25
+     904:	88 bb       	out	0x18, r24	; 24
+	wsl=1;
+     906:	81 e0       	ldi	r24, 0x01	; 1
+     908:	80 93 70 00 	sts	0x0070, r24
+	cli(); // أغلق الإنترابت
+     90c:	f8 94       	cli
+     90e:	c0 e0       	ldi	r28, 0x00	; 0
+     910:	d0 e0       	ldi	r29, 0x00	; 0
+     912:	00 e9       	ldi	r16, 0x90	; 144
+     914:	11 e0       	ldi	r17, 0x01	; 1
+     916:	10 c0       	rjmp	.+32     	; 0x938 <replay_path+0x54>
+	// أعد وضع البداية لو كنت رايح (لكن هنا سيبدأ من مكانك الحالي)
+	// pos_x = ...; pos_y = ...; heading = ...; // لا تغيرهم هنا
+
+	for (uint16_t i = 0; i < path_len; i++) {
+		uint8 dir = path_dir[i];
+		rotate_to_dir(dir);
+     918:	fe 01       	movw	r30, r28
+     91a:	e7 54       	subi	r30, 0x47	; 71
+     91c:	fe 4f       	sbci	r31, 0xFE	; 254
+     91e:	80 81       	ld	r24, Z
+     920:	0e 94 56 03 	call	0x6ac	; 0x6ac <rotate_to_dir>
+		move_forward_one_cell();
+     924:	0e 94 04 04 	call	0x808	; 0x808 <move_forward_one_cell>
+     928:	80 e2       	ldi	r24, 0x20	; 32
+     92a:	93 e0       	ldi	r25, 0x03	; 3
+     92c:	f8 01       	movw	r30, r16
+     92e:	31 97       	sbiw	r30, 0x01	; 1
+     930:	f1 f7       	brne	.-4      	; 0x92e <replay_path+0x4a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     932:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     934:	d9 f7       	brne	.-10     	; 0x92c <replay_path+0x48>
+	wsl=1;
+	cli(); // أغلق الإنترابت
+	// أعد وضع البداية لو كنت رايح (لكن هنا سيبدأ من مكانك الحالي)
+	// pos_x = ...; pos_y = ...; heading = ...; // لا تغيرهم هنا
+
+	for (uint16_t i = 0; i < path_len; i++) {
+     936:	21 96       	adiw	r28, 0x01	; 1
+     938:	80 91 77 00 	lds	r24, 0x0077
+     93c:	90 91 78 00 	lds	r25, 0x0078
+     940:	c8 17       	cp	r28, r24
+     942:	d9 07       	cpc	r29, r25
+     944:	48 f3       	brcs	.-46     	; 0x918 <replay_path+0x34>
+		rotate_to_dir(dir);
+		move_forward_one_cell();
+		_delay_ms(80);
+	}
+
+	DC_RIGHT(CW,0);
+     946:	81 e0       	ldi	r24, 0x01	; 1
+     948:	60 e0       	ldi	r22, 0x00	; 0
+     94a:	0e 94 06 07 	call	0xe0c	; 0xe0c <DC_RIGHT>
+	DC_LEFT(CW,0);
+     94e:	81 e0       	ldi	r24, 0x01	; 1
+     950:	60 e0       	ldi	r22, 0x00	; 0
+     952:	0e 94 22 07 	call	0xe44	; 0xe44 <DC_LEFT>
+     956:	88 e8       	ldi	r24, 0x88	; 136
+     958:	93 e1       	ldi	r25, 0x13	; 19
+     95a:	20 e9       	ldi	r18, 0x90	; 144
+     95c:	31 e0       	ldi	r19, 0x01	; 1
+     95e:	f9 01       	movw	r30, r18
+     960:	31 97       	sbiw	r30, 0x01	; 1
+     962:	f1 f7       	brne	.-4      	; 0x960 <replay_path+0x7c>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     964:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     966:	d9 f7       	brne	.-10     	; 0x95e <replay_path+0x7a>
+	_delay_ms(500);
+
+	sei(); // إعادة تفعيل الإنترابت
+     968:	78 94       	sei
+}
+     96a:	df 91       	pop	r29
+     96c:	cf 91       	pop	r28
+     96e:	1f 91       	pop	r17
+     970:	0f 91       	pop	r16
+     972:	08 95       	ret
+
+00000974 <__vector_1>:
+
+ISR(INT0_vect) {
+     974:	1f 92       	push	r1
+     976:	0f 92       	push	r0
+     978:	0f b6       	in	r0, 0x3f	; 63
+     97a:	0f 92       	push	r0
+     97c:	11 24       	eor	r1, r1
+     97e:	2f 93       	push	r18
+     980:	3f 93       	push	r19
+     982:	4f 93       	push	r20
+     984:	5f 93       	push	r21
+     986:	6f 93       	push	r22
+     988:	7f 93       	push	r23
+     98a:	8f 93       	push	r24
+     98c:	9f 93       	push	r25
+     98e:	af 93       	push	r26
+     990:	bf 93       	push	r27
+     992:	ef 93       	push	r30
+     994:	ff 93       	push	r31
+	if (goal_reached) {
+     996:	80 91 71 00 	lds	r24, 0x0071
+     99a:	88 23       	and	r24, r24
+     99c:	11 f0       	breq	.+4      	; 0x9a2 <__vector_1+0x2e>
+		replay_path();
+     99e:	0e 94 72 04 	call	0x8e4	; 0x8e4 <replay_path>
+	}
+}
+     9a2:	ff 91       	pop	r31
+     9a4:	ef 91       	pop	r30
+     9a6:	bf 91       	pop	r27
+     9a8:	af 91       	pop	r26
+     9aa:	9f 91       	pop	r25
+     9ac:	8f 91       	pop	r24
+     9ae:	7f 91       	pop	r23
+     9b0:	6f 91       	pop	r22
+     9b2:	5f 91       	pop	r21
+     9b4:	4f 91       	pop	r20
+     9b6:	3f 91       	pop	r19
+     9b8:	2f 91       	pop	r18
+     9ba:	0f 90       	pop	r0
+     9bc:	0f be       	out	0x3f, r0	; 63
+     9be:	0f 90       	pop	r0
+     9c0:	1f 90       	pop	r1
+     9c2:	18 95       	reti
+
+000009c4 <update_walls>:
+ * return:
+ *  - 1 lw fe update 7sl (wall gded).
+ *  - 0 lw mafi4 ay taghyeer.
+ */
+
+uint8 update_walls(void) {
+     9c4:	2f 92       	push	r2
+     9c6:	3f 92       	push	r3
+     9c8:	4f 92       	push	r4
+     9ca:	5f 92       	push	r5
+     9cc:	6f 92       	push	r6
+     9ce:	7f 92       	push	r7
+     9d0:	8f 92       	push	r8
+     9d2:	9f 92       	push	r9
+     9d4:	af 92       	push	r10
+     9d6:	bf 92       	push	r11
+     9d8:	cf 92       	push	r12
+     9da:	df 92       	push	r13
+     9dc:	ef 92       	push	r14
+     9de:	ff 92       	push	r15
+     9e0:	0f 93       	push	r16
+     9e2:	1f 93       	push	r17
+     9e4:	cf 93       	push	r28
+     9e6:	df 93       	push	r29
+	uint8 updated = 0;
+
+	int left_dir = (heading + 3) % 4;
+     9e8:	a0 91 76 00 	lds	r26, 0x0076
+     9ec:	2a 2f       	mov	r18, r26
+     9ee:	30 e0       	ldi	r19, 0x00	; 0
+     9f0:	f9 01       	movw	r30, r18
+     9f2:	33 96       	adiw	r30, 0x03	; 3
+     9f4:	e3 70       	andi	r30, 0x03	; 3
+     9f6:	f0 70       	andi	r31, 0x00	; 0
+	int right_dir = (heading + 1) % 4;
+     9f8:	d9 01       	movw	r26, r18
+     9fa:	11 96       	adiw	r26, 0x01	; 1
+     9fc:	a3 70       	andi	r26, 0x03	; 3
+     9fe:	b0 70       	andi	r27, 0x00	; 0
+	int lx = pos_x + dx[left_dir];
+     a00:	20 90 72 00 	lds	r2, 0x0072
+     a04:	30 90 73 00 	lds	r3, 0x0073
+     a08:	ee 0f       	add	r30, r30
+     a0a:	ff 1f       	adc	r31, r31
+     a0c:	cf 01       	movw	r24, r30
+     a0e:	80 5a       	subi	r24, 0xA0	; 160
+     a10:	9f 4f       	sbci	r25, 0xFF	; 255
+     a12:	ec 01       	movw	r28, r24
+     a14:	e8 80       	ld	r14, Y
+     a16:	f9 80       	ldd	r15, Y+1	; 0x01
+	int ly = pos_y + dy[left_dir];
+     a18:	00 91 74 00 	lds	r16, 0x0074
+     a1c:	10 91 75 00 	lds	r17, 0x0075
+     a20:	e8 59       	subi	r30, 0x98	; 152
+     a22:	ff 4f       	sbci	r31, 0xFF	; 255
+     a24:	c0 80       	ld	r12, Z
+     a26:	d1 80       	ldd	r13, Z+1	; 0x01
+	int rx = pos_x + dx[right_dir];
+     a28:	aa 0f       	add	r26, r26
+     a2a:	bb 1f       	adc	r27, r27
+     a2c:	fd 01       	movw	r30, r26
+     a2e:	e0 5a       	subi	r30, 0xA0	; 160
+     a30:	ff 4f       	sbci	r31, 0xFF	; 255
+     a32:	a0 80       	ld	r10, Z
+     a34:	b1 80       	ldd	r11, Z+1	; 0x01
+	int ry = pos_y + dy[right_dir];
+     a36:	a8 59       	subi	r26, 0x98	; 152
+     a38:	bf 4f       	sbci	r27, 0xFF	; 255
+     a3a:	8d 90       	ld	r8, X+
+     a3c:	9c 90       	ld	r9, X
+	int fx = pos_x + dx[heading];
+     a3e:	d9 01       	movw	r26, r18
+     a40:	aa 0f       	add	r26, r26
+     a42:	bb 1f       	adc	r27, r27
+     a44:	fd 01       	movw	r30, r26
+     a46:	e0 5a       	subi	r30, 0xA0	; 160
+     a48:	ff 4f       	sbci	r31, 0xFF	; 255
+     a4a:	60 80       	ld	r6, Z
+     a4c:	71 80       	ldd	r7, Z+1	; 0x01
+	int fy = pos_y + dy[heading];
+     a4e:	a8 59       	subi	r26, 0x98	; 152
+     a50:	bf 4f       	sbci	r27, 0xFF	; 255
+     a52:	4d 90       	ld	r4, X+
+     a54:	5c 90       	ld	r5, X
+
+	// اليسار (IR1, IR2)
+	if ((IR1_getState() ) && lx >= 0 && lx < MAZE_SIZE && ly >= 0 && ly < MAZE_SIZE) {
+     a56:	0e 94 48 07 	call	0xe90	; 0xe90 <IR1_getState>
+     a5a:	88 23       	and	r24, r24
+     a5c:	11 f1       	breq	.+68     	; 0xaa2 <update_walls+0xde>
+uint8 update_walls(void) {
+	uint8 updated = 0;
+
+	int left_dir = (heading + 3) % 4;
+	int right_dir = (heading + 1) % 4;
+	int lx = pos_x + dx[left_dir];
+     a5e:	c7 01       	movw	r24, r14
+     a60:	82 0d       	add	r24, r2
+     a62:	93 1d       	adc	r25, r3
+	int ry = pos_y + dy[right_dir];
+	int fx = pos_x + dx[heading];
+	int fy = pos_y + dy[heading];
+
+	// اليسار (IR1, IR2)
+	if ((IR1_getState() ) && lx >= 0 && lx < MAZE_SIZE && ly >= 0 && ly < MAZE_SIZE) {
+     a64:	97 fd       	sbrc	r25, 7
+     a66:	1d c0       	rjmp	.+58     	; 0xaa2 <update_walls+0xde>
+     a68:	88 30       	cpi	r24, 0x08	; 8
+     a6a:	91 05       	cpc	r25, r1
+     a6c:	d4 f4       	brge	.+52     	; 0xaa2 <update_walls+0xde>
+	uint8 updated = 0;
+
+	int left_dir = (heading + 3) % 4;
+	int right_dir = (heading + 1) % 4;
+	int lx = pos_x + dx[left_dir];
+	int ly = pos_y + dy[left_dir];
+     a6e:	f6 01       	movw	r30, r12
+     a70:	e0 0f       	add	r30, r16
+     a72:	f1 1f       	adc	r31, r17
+	int ry = pos_y + dy[right_dir];
+	int fx = pos_x + dx[heading];
+	int fy = pos_y + dy[heading];
+
+	// اليسار (IR1, IR2)
+	if ((IR1_getState() ) && lx >= 0 && lx < MAZE_SIZE && ly >= 0 && ly < MAZE_SIZE) {
+     a74:	f7 fd       	sbrc	r31, 7
+     a76:	15 c0       	rjmp	.+42     	; 0xaa2 <update_walls+0xde>
+     a78:	e8 30       	cpi	r30, 0x08	; 8
+     a7a:	f1 05       	cpc	r31, r1
+     a7c:	94 f4       	brge	.+36     	; 0xaa2 <update_walls+0xde>
+		if (maze[lx][ly] != 1) { maze[lx][ly] = 1; updated = 1; }
+     a7e:	dc 01       	movw	r26, r24
+     a80:	73 e0       	ldi	r23, 0x03	; 3
+     a82:	aa 0f       	add	r26, r26
+     a84:	bb 1f       	adc	r27, r27
+     a86:	7a 95       	dec	r23
+     a88:	e1 f7       	brne	.-8      	; 0xa82 <update_walls+0xbe>
+     a8a:	ae 0f       	add	r26, r30
+     a8c:	bf 1f       	adc	r27, r31
+     a8e:	a7 5c       	subi	r26, 0xC7	; 199
+     a90:	be 4f       	sbci	r27, 0xFE	; 254
+     a92:	8c 91       	ld	r24, X
+     a94:	81 30       	cpi	r24, 0x01	; 1
+     a96:	29 f0       	breq	.+10     	; 0xaa2 <update_walls+0xde>
+     a98:	81 e0       	ldi	r24, 0x01	; 1
+     a9a:	8c 93       	st	X, r24
+     a9c:	ff 24       	eor	r15, r15
+     a9e:	f3 94       	inc	r15
+     aa0:	01 c0       	rjmp	.+2      	; 0xaa4 <update_walls+0xe0>
+     aa2:	ff 24       	eor	r15, r15
+	}
+	// اليمين (IR7, IR8)
+	if (( IR8_getState()) && rx >= 0 && rx < MAZE_SIZE && ry >= 0 && ry < MAZE_SIZE) {
+     aa4:	0e 94 52 07 	call	0xea4	; 0xea4 <IR8_getState>
+     aa8:	88 23       	and	r24, r24
+     aaa:	09 f1       	breq	.+66     	; 0xaee <update_walls+0x12a>
+
+	int left_dir = (heading + 3) % 4;
+	int right_dir = (heading + 1) % 4;
+	int lx = pos_x + dx[left_dir];
+	int ly = pos_y + dy[left_dir];
+	int rx = pos_x + dx[right_dir];
+     aac:	c5 01       	movw	r24, r10
+     aae:	82 0d       	add	r24, r2
+     ab0:	93 1d       	adc	r25, r3
+	// اليسار (IR1, IR2)
+	if ((IR1_getState() ) && lx >= 0 && lx < MAZE_SIZE && ly >= 0 && ly < MAZE_SIZE) {
+		if (maze[lx][ly] != 1) { maze[lx][ly] = 1; updated = 1; }
+	}
+	// اليمين (IR7, IR8)
+	if (( IR8_getState()) && rx >= 0 && rx < MAZE_SIZE && ry >= 0 && ry < MAZE_SIZE) {
+     ab2:	97 fd       	sbrc	r25, 7
+     ab4:	1c c0       	rjmp	.+56     	; 0xaee <update_walls+0x12a>
+     ab6:	88 30       	cpi	r24, 0x08	; 8
+     ab8:	91 05       	cpc	r25, r1
+     aba:	cc f4       	brge	.+50     	; 0xaee <update_walls+0x12a>
+	int left_dir = (heading + 3) % 4;
+	int right_dir = (heading + 1) % 4;
+	int lx = pos_x + dx[left_dir];
+	int ly = pos_y + dy[left_dir];
+	int rx = pos_x + dx[right_dir];
+	int ry = pos_y + dy[right_dir];
+     abc:	d4 01       	movw	r26, r8
+     abe:	a0 0f       	add	r26, r16
+     ac0:	b1 1f       	adc	r27, r17
+	// اليسار (IR1, IR2)
+	if ((IR1_getState() ) && lx >= 0 && lx < MAZE_SIZE && ly >= 0 && ly < MAZE_SIZE) {
+		if (maze[lx][ly] != 1) { maze[lx][ly] = 1; updated = 1; }
+	}
+	// اليمين (IR7, IR8)
+	if (( IR8_getState()) && rx >= 0 && rx < MAZE_SIZE && ry >= 0 && ry < MAZE_SIZE) {
+     ac2:	b7 fd       	sbrc	r27, 7
+     ac4:	14 c0       	rjmp	.+40     	; 0xaee <update_walls+0x12a>
+     ac6:	a8 30       	cpi	r26, 0x08	; 8
+     ac8:	b1 05       	cpc	r27, r1
+     aca:	8c f4       	brge	.+34     	; 0xaee <update_walls+0x12a>
+		if (maze[rx][ry] != 1) { maze[rx][ry] = 1; updated = 1; }
+     acc:	fc 01       	movw	r30, r24
+     ace:	63 e0       	ldi	r22, 0x03	; 3
+     ad0:	ee 0f       	add	r30, r30
+     ad2:	ff 1f       	adc	r31, r31
+     ad4:	6a 95       	dec	r22
+     ad6:	e1 f7       	brne	.-8      	; 0xad0 <update_walls+0x10c>
+     ad8:	ea 0f       	add	r30, r26
+     ada:	fb 1f       	adc	r31, r27
+     adc:	e7 5c       	subi	r30, 0xC7	; 199
+     ade:	fe 4f       	sbci	r31, 0xFE	; 254
+     ae0:	80 81       	ld	r24, Z
+     ae2:	81 30       	cpi	r24, 0x01	; 1
+     ae4:	21 f0       	breq	.+8      	; 0xaee <update_walls+0x12a>
+     ae6:	81 e0       	ldi	r24, 0x01	; 1
+     ae8:	80 83       	st	Z, r24
+     aea:	ff 24       	eor	r15, r15
+     aec:	f3 94       	inc	r15
+	}
+	// امام (IR3, IR6)
+	if ((IR3_getState()) && fx >= 0 && fx < MAZE_SIZE && fy >= 0 && fy < MAZE_SIZE) {
+     aee:	0e 94 4c 07 	call	0xe98	; 0xe98 <IR3_getState>
+     af2:	88 23       	and	r24, r24
+     af4:	09 f1       	breq	.+66     	; 0xb38 <update_walls+0x174>
+	int right_dir = (heading + 1) % 4;
+	int lx = pos_x + dx[left_dir];
+	int ly = pos_y + dy[left_dir];
+	int rx = pos_x + dx[right_dir];
+	int ry = pos_y + dy[right_dir];
+	int fx = pos_x + dx[heading];
+     af6:	c3 01       	movw	r24, r6
+     af8:	82 0d       	add	r24, r2
+     afa:	93 1d       	adc	r25, r3
+	// اليمين (IR7, IR8)
+	if (( IR8_getState()) && rx >= 0 && rx < MAZE_SIZE && ry >= 0 && ry < MAZE_SIZE) {
+		if (maze[rx][ry] != 1) { maze[rx][ry] = 1; updated = 1; }
+	}
+	// امام (IR3, IR6)
+	if ((IR3_getState()) && fx >= 0 && fx < MAZE_SIZE && fy >= 0 && fy < MAZE_SIZE) {
+     afc:	97 fd       	sbrc	r25, 7
+     afe:	1c c0       	rjmp	.+56     	; 0xb38 <update_walls+0x174>
+     b00:	88 30       	cpi	r24, 0x08	; 8
+     b02:	91 05       	cpc	r25, r1
+     b04:	cc f4       	brge	.+50     	; 0xb38 <update_walls+0x174>
+	int lx = pos_x + dx[left_dir];
+	int ly = pos_y + dy[left_dir];
+	int rx = pos_x + dx[right_dir];
+	int ry = pos_y + dy[right_dir];
+	int fx = pos_x + dx[heading];
+	int fy = pos_y + dy[heading];
+     b06:	d2 01       	movw	r26, r4
+     b08:	a0 0f       	add	r26, r16
+     b0a:	b1 1f       	adc	r27, r17
+	// اليمين (IR7, IR8)
+	if (( IR8_getState()) && rx >= 0 && rx < MAZE_SIZE && ry >= 0 && ry < MAZE_SIZE) {
+		if (maze[rx][ry] != 1) { maze[rx][ry] = 1; updated = 1; }
+	}
+	// امام (IR3, IR6)
+	if ((IR3_getState()) && fx >= 0 && fx < MAZE_SIZE && fy >= 0 && fy < MAZE_SIZE) {
+     b0c:	b7 fd       	sbrc	r27, 7
+     b0e:	14 c0       	rjmp	.+40     	; 0xb38 <update_walls+0x174>
+     b10:	a8 30       	cpi	r26, 0x08	; 8
+     b12:	b1 05       	cpc	r27, r1
+     b14:	8c f4       	brge	.+34     	; 0xb38 <update_walls+0x174>
+		if (maze[fx][fy] != 1) { maze[fx][fy] = 1; updated = 1; }
+     b16:	fc 01       	movw	r30, r24
+     b18:	53 e0       	ldi	r21, 0x03	; 3
+     b1a:	ee 0f       	add	r30, r30
+     b1c:	ff 1f       	adc	r31, r31
+     b1e:	5a 95       	dec	r21
+     b20:	e1 f7       	brne	.-8      	; 0xb1a <update_walls+0x156>
+     b22:	ea 0f       	add	r30, r26
+     b24:	fb 1f       	adc	r31, r27
+     b26:	e7 5c       	subi	r30, 0xC7	; 199
+     b28:	fe 4f       	sbci	r31, 0xFE	; 254
+     b2a:	80 81       	ld	r24, Z
+     b2c:	81 30       	cpi	r24, 0x01	; 1
+     b2e:	21 f0       	breq	.+8      	; 0xb38 <update_walls+0x174>
+     b30:	81 e0       	ldi	r24, 0x01	; 1
+     b32:	80 83       	st	Z, r24
+     b34:	ff 24       	eor	r15, r15
+     b36:	f3 94       	inc	r15
+	}
+
+	return updated;
+}
+     b38:	8f 2d       	mov	r24, r15
+     b3a:	df 91       	pop	r29
+     b3c:	cf 91       	pop	r28
+     b3e:	1f 91       	pop	r17
+     b40:	0f 91       	pop	r16
+     b42:	ff 90       	pop	r15
+     b44:	ef 90       	pop	r14
+     b46:	df 90       	pop	r13
+     b48:	cf 90       	pop	r12
+     b4a:	bf 90       	pop	r11
+     b4c:	af 90       	pop	r10
+     b4e:	9f 90       	pop	r9
+     b50:	8f 90       	pop	r8
+     b52:	7f 90       	pop	r7
+     b54:	6f 90       	pop	r6
+     b56:	5f 90       	pop	r5
+     b58:	4f 90       	pop	r4
+     b5a:	3f 90       	pop	r3
+     b5c:	2f 90       	pop	r2
+     b5e:	08 95       	ret
+
+00000b60 <GPIO_setupPinDirection>:
+	/*
+	 * Check if the input port number is greater than NUM_OF_PINS_PER_PORT value.
+	 * Or if the input pin number is greater than NUM_OF_PINS_PER_PORT value.
+	 * In this case the input is not valid port/pin number
+	 */
+	if((pin_num >= NUM_OF_PINS_PER_PORT) || (port_num >= NUM_OF_PORTS))
+     b60:	68 30       	cpi	r22, 0x08	; 8
+     b62:	08 f0       	brcs	.+2      	; 0xb66 <GPIO_setupPinDirection+0x6>
+     b64:	70 c0       	rjmp	.+224    	; 0xc46 <GPIO_setupPinDirection+0xe6>
+     b66:	84 30       	cpi	r24, 0x04	; 4
+     b68:	08 f0       	brcs	.+2      	; 0xb6c <GPIO_setupPinDirection+0xc>
+     b6a:	6d c0       	rjmp	.+218    	; 0xc46 <GPIO_setupPinDirection+0xe6>
+		/* Do Nothing */
+	}
+	else
+	{
+		/* Setup the pin direction as required */
+		switch(port_num)
+     b6c:	81 30       	cpi	r24, 0x01	; 1
+     b6e:	09 f1       	breq	.+66     	; 0xbb2 <GPIO_setupPinDirection+0x52>
+     b70:	81 30       	cpi	r24, 0x01	; 1
+     b72:	30 f0       	brcs	.+12     	; 0xb80 <GPIO_setupPinDirection+0x20>
+     b74:	82 30       	cpi	r24, 0x02	; 2
+     b76:	b1 f1       	breq	.+108    	; 0xbe4 <GPIO_setupPinDirection+0x84>
+     b78:	83 30       	cpi	r24, 0x03	; 3
+     b7a:	09 f0       	breq	.+2      	; 0xb7e <GPIO_setupPinDirection+0x1e>
+     b7c:	64 c0       	rjmp	.+200    	; 0xc46 <GPIO_setupPinDirection+0xe6>
+     b7e:	4b c0       	rjmp	.+150    	; 0xc16 <GPIO_setupPinDirection+0xb6>
+		{
+		case PORTA_ID:
+			if(direction == PIN_OUTPUT)
+     b80:	41 30       	cpi	r20, 0x01	; 1
+     b82:	59 f4       	brne	.+22     	; 0xb9a <GPIO_setupPinDirection+0x3a>
+			{
+				SET_BIT(DDRA,pin_num);
+     b84:	2a b3       	in	r18, 0x1a	; 26
+     b86:	81 e0       	ldi	r24, 0x01	; 1
+     b88:	90 e0       	ldi	r25, 0x00	; 0
+     b8a:	02 c0       	rjmp	.+4      	; 0xb90 <GPIO_setupPinDirection+0x30>
+     b8c:	88 0f       	add	r24, r24
+     b8e:	99 1f       	adc	r25, r25
+     b90:	6a 95       	dec	r22
+     b92:	e2 f7       	brpl	.-8      	; 0xb8c <GPIO_setupPinDirection+0x2c>
+     b94:	28 2b       	or	r18, r24
+     b96:	2a bb       	out	0x1a, r18	; 26
+     b98:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRA,pin_num);
+     b9a:	2a b3       	in	r18, 0x1a	; 26
+     b9c:	81 e0       	ldi	r24, 0x01	; 1
+     b9e:	90 e0       	ldi	r25, 0x00	; 0
+     ba0:	02 c0       	rjmp	.+4      	; 0xba6 <GPIO_setupPinDirection+0x46>
+     ba2:	88 0f       	add	r24, r24
+     ba4:	99 1f       	adc	r25, r25
+     ba6:	6a 95       	dec	r22
+     ba8:	e2 f7       	brpl	.-8      	; 0xba2 <GPIO_setupPinDirection+0x42>
+     baa:	80 95       	com	r24
+     bac:	82 23       	and	r24, r18
+     bae:	8a bb       	out	0x1a, r24	; 26
+     bb0:	08 95       	ret
+			}
+			break;
+		case PORTB_ID:
+			if(direction == PIN_OUTPUT)
+     bb2:	41 30       	cpi	r20, 0x01	; 1
+     bb4:	59 f4       	brne	.+22     	; 0xbcc <GPIO_setupPinDirection+0x6c>
+			{
+				SET_BIT(DDRB,pin_num);
+     bb6:	27 b3       	in	r18, 0x17	; 23
+     bb8:	81 e0       	ldi	r24, 0x01	; 1
+     bba:	90 e0       	ldi	r25, 0x00	; 0
+     bbc:	02 c0       	rjmp	.+4      	; 0xbc2 <GPIO_setupPinDirection+0x62>
+     bbe:	88 0f       	add	r24, r24
+     bc0:	99 1f       	adc	r25, r25
+     bc2:	6a 95       	dec	r22
+     bc4:	e2 f7       	brpl	.-8      	; 0xbbe <GPIO_setupPinDirection+0x5e>
+     bc6:	28 2b       	or	r18, r24
+     bc8:	27 bb       	out	0x17, r18	; 23
+     bca:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRB,pin_num);
+     bcc:	27 b3       	in	r18, 0x17	; 23
+     bce:	81 e0       	ldi	r24, 0x01	; 1
+     bd0:	90 e0       	ldi	r25, 0x00	; 0
+     bd2:	02 c0       	rjmp	.+4      	; 0xbd8 <GPIO_setupPinDirection+0x78>
+     bd4:	88 0f       	add	r24, r24
+     bd6:	99 1f       	adc	r25, r25
+     bd8:	6a 95       	dec	r22
+     bda:	e2 f7       	brpl	.-8      	; 0xbd4 <GPIO_setupPinDirection+0x74>
+     bdc:	80 95       	com	r24
+     bde:	82 23       	and	r24, r18
+     be0:	87 bb       	out	0x17, r24	; 23
+     be2:	08 95       	ret
+			}
+			break;
+		case PORTC_ID:
+			if(direction == PIN_OUTPUT)
+     be4:	41 30       	cpi	r20, 0x01	; 1
+     be6:	59 f4       	brne	.+22     	; 0xbfe <GPIO_setupPinDirection+0x9e>
+			{
+				SET_BIT(DDRC,pin_num);
+     be8:	24 b3       	in	r18, 0x14	; 20
+     bea:	81 e0       	ldi	r24, 0x01	; 1
+     bec:	90 e0       	ldi	r25, 0x00	; 0
+     bee:	02 c0       	rjmp	.+4      	; 0xbf4 <GPIO_setupPinDirection+0x94>
+     bf0:	88 0f       	add	r24, r24
+     bf2:	99 1f       	adc	r25, r25
+     bf4:	6a 95       	dec	r22
+     bf6:	e2 f7       	brpl	.-8      	; 0xbf0 <GPIO_setupPinDirection+0x90>
+     bf8:	28 2b       	or	r18, r24
+     bfa:	24 bb       	out	0x14, r18	; 20
+     bfc:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRC,pin_num);
+     bfe:	24 b3       	in	r18, 0x14	; 20
+     c00:	81 e0       	ldi	r24, 0x01	; 1
+     c02:	90 e0       	ldi	r25, 0x00	; 0
+     c04:	02 c0       	rjmp	.+4      	; 0xc0a <GPIO_setupPinDirection+0xaa>
+     c06:	88 0f       	add	r24, r24
+     c08:	99 1f       	adc	r25, r25
+     c0a:	6a 95       	dec	r22
+     c0c:	e2 f7       	brpl	.-8      	; 0xc06 <GPIO_setupPinDirection+0xa6>
+     c0e:	80 95       	com	r24
+     c10:	82 23       	and	r24, r18
+     c12:	84 bb       	out	0x14, r24	; 20
+     c14:	08 95       	ret
+			}
+			break;
+		case PORTD_ID:
+			if(direction == PIN_OUTPUT)
+     c16:	41 30       	cpi	r20, 0x01	; 1
+     c18:	59 f4       	brne	.+22     	; 0xc30 <GPIO_setupPinDirection+0xd0>
+			{
+				SET_BIT(DDRD,pin_num);
+     c1a:	21 b3       	in	r18, 0x11	; 17
+     c1c:	81 e0       	ldi	r24, 0x01	; 1
+     c1e:	90 e0       	ldi	r25, 0x00	; 0
+     c20:	02 c0       	rjmp	.+4      	; 0xc26 <GPIO_setupPinDirection+0xc6>
+     c22:	88 0f       	add	r24, r24
+     c24:	99 1f       	adc	r25, r25
+     c26:	6a 95       	dec	r22
+     c28:	e2 f7       	brpl	.-8      	; 0xc22 <GPIO_setupPinDirection+0xc2>
+     c2a:	28 2b       	or	r18, r24
+     c2c:	21 bb       	out	0x11, r18	; 17
+     c2e:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRD,pin_num);
+     c30:	21 b3       	in	r18, 0x11	; 17
+     c32:	81 e0       	ldi	r24, 0x01	; 1
+     c34:	90 e0       	ldi	r25, 0x00	; 0
+     c36:	02 c0       	rjmp	.+4      	; 0xc3c <GPIO_setupPinDirection+0xdc>
+     c38:	88 0f       	add	r24, r24
+     c3a:	99 1f       	adc	r25, r25
+     c3c:	6a 95       	dec	r22
+     c3e:	e2 f7       	brpl	.-8      	; 0xc38 <GPIO_setupPinDirection+0xd8>
+     c40:	80 95       	com	r24
+     c42:	82 23       	and	r24, r18
+     c44:	81 bb       	out	0x11, r24	; 17
+     c46:	08 95       	ret
+
+00000c48 <GPIO_writePin>:
+	/*
+	 * Check if the input port number is greater than NUM_OF_PINS_PER_PORT value.
+	 * Or if the input pin number is greater than NUM_OF_PINS_PER_PORT value.
+	 * In this case the input is not valid port/pin number
+	 */
+	if((pin_num >= NUM_OF_PINS_PER_PORT) || (port_num >= NUM_OF_PORTS))
+     c48:	68 30       	cpi	r22, 0x08	; 8
+     c4a:	08 f0       	brcs	.+2      	; 0xc4e <GPIO_writePin+0x6>
+     c4c:	70 c0       	rjmp	.+224    	; 0xd2e <GPIO_writePin+0xe6>
+     c4e:	84 30       	cpi	r24, 0x04	; 4
+     c50:	08 f0       	brcs	.+2      	; 0xc54 <GPIO_writePin+0xc>
+     c52:	6d c0       	rjmp	.+218    	; 0xd2e <GPIO_writePin+0xe6>
+		/* Do Nothing */
+	}
+	else
+	{
+		/* Write the pin value as required */
+		switch(port_num)
+     c54:	81 30       	cpi	r24, 0x01	; 1
+     c56:	09 f1       	breq	.+66     	; 0xc9a <GPIO_writePin+0x52>
+     c58:	81 30       	cpi	r24, 0x01	; 1
+     c5a:	30 f0       	brcs	.+12     	; 0xc68 <GPIO_writePin+0x20>
+     c5c:	82 30       	cpi	r24, 0x02	; 2
+     c5e:	b1 f1       	breq	.+108    	; 0xccc <GPIO_writePin+0x84>
+     c60:	83 30       	cpi	r24, 0x03	; 3
+     c62:	09 f0       	breq	.+2      	; 0xc66 <GPIO_writePin+0x1e>
+     c64:	64 c0       	rjmp	.+200    	; 0xd2e <GPIO_writePin+0xe6>
+     c66:	4b c0       	rjmp	.+150    	; 0xcfe <GPIO_writePin+0xb6>
+		{
+		case PORTA_ID:
+			if(value == LOGIC_HIGH)
+     c68:	41 30       	cpi	r20, 0x01	; 1
+     c6a:	59 f4       	brne	.+22     	; 0xc82 <GPIO_writePin+0x3a>
+			{
+				SET_BIT(PORTA,pin_num);
+     c6c:	2b b3       	in	r18, 0x1b	; 27
+     c6e:	81 e0       	ldi	r24, 0x01	; 1
+     c70:	90 e0       	ldi	r25, 0x00	; 0
+     c72:	02 c0       	rjmp	.+4      	; 0xc78 <GPIO_writePin+0x30>
+     c74:	88 0f       	add	r24, r24
+     c76:	99 1f       	adc	r25, r25
+     c78:	6a 95       	dec	r22
+     c7a:	e2 f7       	brpl	.-8      	; 0xc74 <GPIO_writePin+0x2c>
+     c7c:	28 2b       	or	r18, r24
+     c7e:	2b bb       	out	0x1b, r18	; 27
+     c80:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(PORTA,pin_num);
+     c82:	2b b3       	in	r18, 0x1b	; 27
+     c84:	81 e0       	ldi	r24, 0x01	; 1
+     c86:	90 e0       	ldi	r25, 0x00	; 0
+     c88:	02 c0       	rjmp	.+4      	; 0xc8e <GPIO_writePin+0x46>
+     c8a:	88 0f       	add	r24, r24
+     c8c:	99 1f       	adc	r25, r25
+     c8e:	6a 95       	dec	r22
+     c90:	e2 f7       	brpl	.-8      	; 0xc8a <GPIO_writePin+0x42>
+     c92:	80 95       	com	r24
+     c94:	82 23       	and	r24, r18
+     c96:	8b bb       	out	0x1b, r24	; 27
+     c98:	08 95       	ret
+			}
+			break;
+		case PORTB_ID:
+			if(value == LOGIC_HIGH)
+     c9a:	41 30       	cpi	r20, 0x01	; 1
+     c9c:	59 f4       	brne	.+22     	; 0xcb4 <GPIO_writePin+0x6c>
+			{
+				SET_BIT(PORTB,pin_num);
+     c9e:	28 b3       	in	r18, 0x18	; 24
+     ca0:	81 e0       	ldi	r24, 0x01	; 1
+     ca2:	90 e0       	ldi	r25, 0x00	; 0
+     ca4:	02 c0       	rjmp	.+4      	; 0xcaa <GPIO_writePin+0x62>
+     ca6:	88 0f       	add	r24, r24
+     ca8:	99 1f       	adc	r25, r25
+     caa:	6a 95       	dec	r22
+     cac:	e2 f7       	brpl	.-8      	; 0xca6 <GPIO_writePin+0x5e>
+     cae:	28 2b       	or	r18, r24
+     cb0:	28 bb       	out	0x18, r18	; 24
+     cb2:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(PORTB,pin_num);
+     cb4:	28 b3       	in	r18, 0x18	; 24
+     cb6:	81 e0       	ldi	r24, 0x01	; 1
+     cb8:	90 e0       	ldi	r25, 0x00	; 0
+     cba:	02 c0       	rjmp	.+4      	; 0xcc0 <GPIO_writePin+0x78>
+     cbc:	88 0f       	add	r24, r24
+     cbe:	99 1f       	adc	r25, r25
+     cc0:	6a 95       	dec	r22
+     cc2:	e2 f7       	brpl	.-8      	; 0xcbc <GPIO_writePin+0x74>
+     cc4:	80 95       	com	r24
+     cc6:	82 23       	and	r24, r18
+     cc8:	88 bb       	out	0x18, r24	; 24
+     cca:	08 95       	ret
+			}
+			break;
+		case PORTC_ID:
+			if(value == LOGIC_HIGH)
+     ccc:	41 30       	cpi	r20, 0x01	; 1
+     cce:	59 f4       	brne	.+22     	; 0xce6 <GPIO_writePin+0x9e>
+			{
+				SET_BIT(PORTC,pin_num);
+     cd0:	25 b3       	in	r18, 0x15	; 21
+     cd2:	81 e0       	ldi	r24, 0x01	; 1
+     cd4:	90 e0       	ldi	r25, 0x00	; 0
+     cd6:	02 c0       	rjmp	.+4      	; 0xcdc <GPIO_writePin+0x94>
+     cd8:	88 0f       	add	r24, r24
+     cda:	99 1f       	adc	r25, r25
+     cdc:	6a 95       	dec	r22
+     cde:	e2 f7       	brpl	.-8      	; 0xcd8 <GPIO_writePin+0x90>
+     ce0:	28 2b       	or	r18, r24
+     ce2:	25 bb       	out	0x15, r18	; 21
+     ce4:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(PORTC,pin_num);
+     ce6:	25 b3       	in	r18, 0x15	; 21
+     ce8:	81 e0       	ldi	r24, 0x01	; 1
+     cea:	90 e0       	ldi	r25, 0x00	; 0
+     cec:	02 c0       	rjmp	.+4      	; 0xcf2 <GPIO_writePin+0xaa>
+     cee:	88 0f       	add	r24, r24
+     cf0:	99 1f       	adc	r25, r25
+     cf2:	6a 95       	dec	r22
+     cf4:	e2 f7       	brpl	.-8      	; 0xcee <GPIO_writePin+0xa6>
+     cf6:	80 95       	com	r24
+     cf8:	82 23       	and	r24, r18
+     cfa:	85 bb       	out	0x15, r24	; 21
+     cfc:	08 95       	ret
+			}
+			break;
+		case PORTD_ID:
+			if(value == LOGIC_HIGH)
+     cfe:	41 30       	cpi	r20, 0x01	; 1
+     d00:	59 f4       	brne	.+22     	; 0xd18 <GPIO_writePin+0xd0>
+			{
+				SET_BIT(PORTD,pin_num);
+     d02:	22 b3       	in	r18, 0x12	; 18
+     d04:	81 e0       	ldi	r24, 0x01	; 1
+     d06:	90 e0       	ldi	r25, 0x00	; 0
+     d08:	02 c0       	rjmp	.+4      	; 0xd0e <GPIO_writePin+0xc6>
+     d0a:	88 0f       	add	r24, r24
+     d0c:	99 1f       	adc	r25, r25
+     d0e:	6a 95       	dec	r22
+     d10:	e2 f7       	brpl	.-8      	; 0xd0a <GPIO_writePin+0xc2>
+     d12:	28 2b       	or	r18, r24
+     d14:	22 bb       	out	0x12, r18	; 18
+     d16:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(PORTD,pin_num);
+     d18:	22 b3       	in	r18, 0x12	; 18
+     d1a:	81 e0       	ldi	r24, 0x01	; 1
+     d1c:	90 e0       	ldi	r25, 0x00	; 0
+     d1e:	02 c0       	rjmp	.+4      	; 0xd24 <GPIO_writePin+0xdc>
+     d20:	88 0f       	add	r24, r24
+     d22:	99 1f       	adc	r25, r25
+     d24:	6a 95       	dec	r22
+     d26:	e2 f7       	brpl	.-8      	; 0xd20 <GPIO_writePin+0xd8>
+     d28:	80 95       	com	r24
+     d2a:	82 23       	and	r24, r18
+     d2c:	82 bb       	out	0x12, r24	; 18
+     d2e:	08 95       	ret
+
+00000d30 <GPIO_readPin>:
+	/*
+	 * Check if the input port number is greater than NUM_OF_PINS_PER_PORT value.
+	 * Or if the input pin number is greater than NUM_OF_PINS_PER_PORT value.
+	 * In this case the input is not valid port/pin number
+	 */
+	if((pin_num >= NUM_OF_PINS_PER_PORT) || (port_num >= NUM_OF_PORTS))
+     d30:	68 30       	cpi	r22, 0x08	; 8
+     d32:	d0 f4       	brcc	.+52     	; 0xd68 <GPIO_readPin+0x38>
+     d34:	84 30       	cpi	r24, 0x04	; 4
+     d36:	c0 f4       	brcc	.+48     	; 0xd68 <GPIO_readPin+0x38>
+		/* Do Nothing */
+	}
+	else
+	{
+		/* Read the pin value as required */
+		switch(port_num)
+     d38:	81 30       	cpi	r24, 0x01	; 1
+     d3a:	49 f0       	breq	.+18     	; 0xd4e <GPIO_readPin+0x1e>
+     d3c:	81 30       	cpi	r24, 0x01	; 1
+     d3e:	28 f0       	brcs	.+10     	; 0xd4a <GPIO_readPin+0x1a>
+     d40:	82 30       	cpi	r24, 0x02	; 2
+     d42:	39 f0       	breq	.+14     	; 0xd52 <GPIO_readPin+0x22>
+     d44:	83 30       	cpi	r24, 0x03	; 3
+     d46:	81 f4       	brne	.+32     	; 0xd68 <GPIO_readPin+0x38>
+     d48:	06 c0       	rjmp	.+12     	; 0xd56 <GPIO_readPin+0x26>
+		{
+		case PORTA_ID:
+			if(BIT_IS_SET(PINA,pin_num))
+     d4a:	89 b3       	in	r24, 0x19	; 25
+     d4c:	05 c0       	rjmp	.+10     	; 0xd58 <GPIO_readPin+0x28>
+			{
+				pin_value = LOGIC_LOW;
+			}
+			break;
+		case PORTB_ID:
+			if(BIT_IS_SET(PINB,pin_num))
+     d4e:	86 b3       	in	r24, 0x16	; 22
+     d50:	03 c0       	rjmp	.+6      	; 0xd58 <GPIO_readPin+0x28>
+			{
+				pin_value = LOGIC_LOW;
+			}
+			break;
+		case PORTC_ID:
+			if(BIT_IS_SET(PINC,pin_num))
+     d52:	83 b3       	in	r24, 0x13	; 19
+     d54:	01 c0       	rjmp	.+2      	; 0xd58 <GPIO_readPin+0x28>
+			{
+				pin_value = LOGIC_LOW;
+			}
+			break;
+		case PORTD_ID:
+			if(BIT_IS_SET(PIND,pin_num))
+     d56:	80 b3       	in	r24, 0x10	; 16
+     d58:	90 e0       	ldi	r25, 0x00	; 0
+     d5a:	02 c0       	rjmp	.+4      	; 0xd60 <GPIO_readPin+0x30>
+     d5c:	95 95       	asr	r25
+     d5e:	87 95       	ror	r24
+     d60:	6a 95       	dec	r22
+     d62:	e2 f7       	brpl	.-8      	; 0xd5c <GPIO_readPin+0x2c>
+     d64:	81 70       	andi	r24, 0x01	; 1
+     d66:	08 95       	ret
+     d68:	80 e0       	ldi	r24, 0x00	; 0
+			break;
+		}
+	}
+
+	return pin_value;
+}
+     d6a:	08 95       	ret
+
+00000d6c <GPIO_setupPortDirection>:
+{
+	/*
+	 * Check if the input number is greater than NUM_OF_PORTS value.
+	 * In this case the input is not valid port number
+	 */
+	if(port_num >= NUM_OF_PORTS)
+     d6c:	84 30       	cpi	r24, 0x04	; 4
+     d6e:	80 f4       	brcc	.+32     	; 0xd90 <GPIO_setupPortDirection+0x24>
+		/* Do Nothing */
+	}
+	else
+	{
+		/* Setup the port direction as required */
+		switch(port_num)
+     d70:	81 30       	cpi	r24, 0x01	; 1
+     d72:	49 f0       	breq	.+18     	; 0xd86 <GPIO_setupPortDirection+0x1a>
+     d74:	81 30       	cpi	r24, 0x01	; 1
+     d76:	28 f0       	brcs	.+10     	; 0xd82 <GPIO_setupPortDirection+0x16>
+     d78:	82 30       	cpi	r24, 0x02	; 2
+     d7a:	39 f0       	breq	.+14     	; 0xd8a <GPIO_setupPortDirection+0x1e>
+     d7c:	83 30       	cpi	r24, 0x03	; 3
+     d7e:	41 f4       	brne	.+16     	; 0xd90 <GPIO_setupPortDirection+0x24>
+     d80:	06 c0       	rjmp	.+12     	; 0xd8e <GPIO_setupPortDirection+0x22>
+		{
+		case PORTA_ID:
+			DDRA = direction;
+     d82:	6a bb       	out	0x1a, r22	; 26
+     d84:	08 95       	ret
+			break;
+		case PORTB_ID:
+			DDRB = direction;
+     d86:	67 bb       	out	0x17, r22	; 23
+     d88:	08 95       	ret
+			break;
+		case PORTC_ID:
+			DDRC = direction;
+     d8a:	64 bb       	out	0x14, r22	; 20
+     d8c:	08 95       	ret
+			break;
+		case PORTD_ID:
+			DDRD = direction;
+     d8e:	61 bb       	out	0x11, r22	; 17
+     d90:	08 95       	ret
+
+00000d92 <GPIO_writePort>:
+{
+	/*
+	 * Check if the input number is greater than NUM_OF_PORTS value.
+	 * In this case the input is not valid port number
+	 */
+	if(port_num >= NUM_OF_PORTS)
+     d92:	84 30       	cpi	r24, 0x04	; 4
+     d94:	80 f4       	brcc	.+32     	; 0xdb6 <GPIO_writePort+0x24>
+		/* Do Nothing */
+	}
+	else
+	{
+		/* Write the port value as required */
+		switch(port_num)
+     d96:	81 30       	cpi	r24, 0x01	; 1
+     d98:	49 f0       	breq	.+18     	; 0xdac <GPIO_writePort+0x1a>
+     d9a:	81 30       	cpi	r24, 0x01	; 1
+     d9c:	28 f0       	brcs	.+10     	; 0xda8 <GPIO_writePort+0x16>
+     d9e:	82 30       	cpi	r24, 0x02	; 2
+     da0:	39 f0       	breq	.+14     	; 0xdb0 <GPIO_writePort+0x1e>
+     da2:	83 30       	cpi	r24, 0x03	; 3
+     da4:	41 f4       	brne	.+16     	; 0xdb6 <GPIO_writePort+0x24>
+     da6:	06 c0       	rjmp	.+12     	; 0xdb4 <GPIO_writePort+0x22>
+		{
+		case PORTA_ID:
+			PORTA = value;
+     da8:	6b bb       	out	0x1b, r22	; 27
+     daa:	08 95       	ret
+			break;
+		case PORTB_ID:
+			PORTB = value;
+     dac:	68 bb       	out	0x18, r22	; 24
+     dae:	08 95       	ret
+			break;
+		case PORTC_ID:
+			PORTC = value;
+     db0:	65 bb       	out	0x15, r22	; 21
+     db2:	08 95       	ret
+			break;
+		case PORTD_ID:
+			PORTD = value;
+     db4:	62 bb       	out	0x12, r22	; 18
+     db6:	08 95       	ret
+
+00000db8 <GPIO_readPort>:
+
+	/*
+	 * Check if the input number is greater than NUM_OF_PORTS value.
+	 * In this case the input is not valid port number
+	 */
+	if(port_num >= NUM_OF_PORTS)
+     db8:	84 30       	cpi	r24, 0x04	; 4
+     dba:	88 f4       	brcc	.+34     	; 0xdde <GPIO_readPort+0x26>
+		/* Do Nothing */
+	}
+	else
+	{
+		/* Read the port value as required */
+		switch(port_num)
+     dbc:	81 30       	cpi	r24, 0x01	; 1
+     dbe:	49 f0       	breq	.+18     	; 0xdd2 <GPIO_readPort+0x1a>
+     dc0:	81 30       	cpi	r24, 0x01	; 1
+     dc2:	28 f0       	brcs	.+10     	; 0xdce <GPIO_readPort+0x16>
+     dc4:	82 30       	cpi	r24, 0x02	; 2
+     dc6:	39 f0       	breq	.+14     	; 0xdd6 <GPIO_readPort+0x1e>
+     dc8:	83 30       	cpi	r24, 0x03	; 3
+     dca:	49 f4       	brne	.+18     	; 0xdde <GPIO_readPort+0x26>
+     dcc:	06 c0       	rjmp	.+12     	; 0xdda <GPIO_readPort+0x22>
+		{
+		case PORTA_ID:
+			value = PINA;
+     dce:	89 b3       	in	r24, 0x19	; 25
+     dd0:	08 95       	ret
+			break;
+		case PORTB_ID:
+			value = PINB;
+     dd2:	86 b3       	in	r24, 0x16	; 22
+     dd4:	08 95       	ret
+			break;
+		case PORTC_ID:
+			value = PINC;
+     dd6:	83 b3       	in	r24, 0x13	; 19
+     dd8:	08 95       	ret
+			break;
+		case PORTD_ID:
+			value = PIND;
+     dda:	80 b3       	in	r24, 0x10	; 16
+     ddc:	08 95       	ret
+     dde:	80 e0       	ldi	r24, 0x00	; 0
+			break;
+		}
+	}
+
+	return value;
+}
+     de0:	08 95       	ret
+
+00000de2 <Motors_init>:
+ * Functions Definitions
+ * ================================================== */
+
+void Motors_init(void){
+
+	DC_MOTOR_RIGHT_DDR |= (1 << DC_MOTOR_RIGHT_IN1) | (1 << DC_MOTOR_RIGHT_IN2);
+     de2:	81 b3       	in	r24, 0x11	; 17
+     de4:	83 60       	ori	r24, 0x03	; 3
+     de6:	81 bb       	out	0x11, r24	; 17
+	PWM_RIGHT_DDR |= (1 << PWM_RIGHT_PIN);
+     de8:	8c 9a       	sbi	0x11, 4	; 17
+	DC_MOTOR_RIGHT_PORT &= ~((1 << DC_MOTOR_RIGHT_IN1) | (1 << DC_MOTOR_RIGHT_IN2));
+     dea:	82 b3       	in	r24, 0x12	; 18
+     dec:	8c 7f       	andi	r24, 0xFC	; 252
+     dee:	82 bb       	out	0x12, r24	; 18
+	DC_MOTOR_LEFT_DDR |= (1 << DC_MOTOR_LEFT_IN1) | (1 << DC_MOTOR_LEFT_IN2);
+     df0:	81 b3       	in	r24, 0x11	; 17
+     df2:	80 6c       	ori	r24, 0xC0	; 192
+     df4:	81 bb       	out	0x11, r24	; 17
+	PWM_LEFT_DDR |= (1 << PWM_LEFT_PIN);
+     df6:	8d 9a       	sbi	0x11, 5	; 17
+	DC_MOTOR_LEFT_PORT &= ~((1 << DC_MOTOR_LEFT_IN1) | (1 << DC_MOTOR_LEFT_IN2));
+     df8:	82 b3       	in	r24, 0x12	; 18
+     dfa:	8f 73       	andi	r24, 0x3F	; 63
+     dfc:	82 bb       	out	0x12, r24	; 18
+
+	TCCR1A |= (1 << WGM10) | (1 << COM1B1) | (1 << COM1A1);
+     dfe:	8f b5       	in	r24, 0x2f	; 47
+     e00:	81 6a       	ori	r24, 0xA1	; 161
+     e02:	8f bd       	out	0x2f, r24	; 47
+	TCCR1B |= (1 << WGM12) | (1 << CS11);
+     e04:	8e b5       	in	r24, 0x2e	; 46
+     e06:	8a 60       	ori	r24, 0x0A	; 10
+     e08:	8e bd       	out	0x2e, r24	; 46
+}
+     e0a:	08 95       	ret
+
+00000e0c <DC_RIGHT>:
+
+/* --------- Control Right Motor --------- */
+void DC_RIGHT(DcMotor_State state, uint8 speed)
+{
+	/* Control direction */
+	switch(state)
+     e0c:	81 30       	cpi	r24, 0x01	; 1
+     e0e:	49 f0       	breq	.+18     	; 0xe22 <DC_RIGHT+0x16>
+     e10:	81 30       	cpi	r24, 0x01	; 1
+     e12:	18 f0       	brcs	.+6      	; 0xe1a <DC_RIGHT+0xe>
+     e14:	82 30       	cpi	r24, 0x02	; 2
+     e16:	51 f4       	brne	.+20     	; 0xe2c <DC_RIGHT+0x20>
+     e18:	07 c0       	rjmp	.+14     	; 0xe28 <DC_RIGHT+0x1c>
+	{
+	case STOP:
+		DC_MOTOR_RIGHT_PORT &= ~((1 << DC_MOTOR_RIGHT_IN1) | (1 << DC_MOTOR_RIGHT_IN2));
+     e1a:	82 b3       	in	r24, 0x12	; 18
+     e1c:	8c 7f       	andi	r24, 0xFC	; 252
+     e1e:	82 bb       	out	0x12, r24	; 18
+     e20:	05 c0       	rjmp	.+10     	; 0xe2c <DC_RIGHT+0x20>
+		break;
+
+	case CW:
+		DC_MOTOR_RIGHT_PORT |= (1 << DC_MOTOR_RIGHT_IN1);
+     e22:	90 9a       	sbi	0x12, 0	; 18
+		DC_MOTOR_RIGHT_PORT &= ~(1 << DC_MOTOR_RIGHT_IN2);
+     e24:	91 98       	cbi	0x12, 1	; 18
+     e26:	02 c0       	rjmp	.+4      	; 0xe2c <DC_RIGHT+0x20>
+		break;
+
+	case A_CW:
+		DC_MOTOR_RIGHT_PORT |= (1 << DC_MOTOR_RIGHT_IN2);
+     e28:	91 9a       	sbi	0x12, 1	; 18
+		DC_MOTOR_RIGHT_PORT &= ~(1 << DC_MOTOR_RIGHT_IN1);
+     e2a:	90 98       	cbi	0x12, 0	; 18
+		break;
+	}
+
+	/* Set speed (0 - 100%) */
+	OCR1B = (uint8)((speed * 255) / 100);
+     e2c:	8f ef       	ldi	r24, 0xFF	; 255
+     e2e:	68 9f       	mul	r22, r24
+     e30:	c0 01       	movw	r24, r0
+     e32:	11 24       	eor	r1, r1
+     e34:	64 e6       	ldi	r22, 0x64	; 100
+     e36:	70 e0       	ldi	r23, 0x00	; 0
+     e38:	0e 94 a4 08 	call	0x1148	; 0x1148 <__divmodhi4>
+     e3c:	70 e0       	ldi	r23, 0x00	; 0
+     e3e:	79 bd       	out	0x29, r23	; 41
+     e40:	68 bd       	out	0x28, r22	; 40
+}
+     e42:	08 95       	ret
+
+00000e44 <DC_LEFT>:
+
+/* --------- Control Left Motor --------- */
+void DC_LEFT(DcMotor_State state, uint8 speed)
+{
+	/* Control direction */
+	switch(state)
+     e44:	81 30       	cpi	r24, 0x01	; 1
+     e46:	49 f0       	breq	.+18     	; 0xe5a <DC_LEFT+0x16>
+     e48:	81 30       	cpi	r24, 0x01	; 1
+     e4a:	18 f0       	brcs	.+6      	; 0xe52 <DC_LEFT+0xe>
+     e4c:	82 30       	cpi	r24, 0x02	; 2
+     e4e:	51 f4       	brne	.+20     	; 0xe64 <DC_LEFT+0x20>
+     e50:	07 c0       	rjmp	.+14     	; 0xe60 <DC_LEFT+0x1c>
+	{
+	case STOP:
+		DC_MOTOR_LEFT_PORT &= ~((1 << DC_MOTOR_LEFT_IN1) | (1 << DC_MOTOR_LEFT_IN2));
+     e52:	82 b3       	in	r24, 0x12	; 18
+     e54:	8f 73       	andi	r24, 0x3F	; 63
+     e56:	82 bb       	out	0x12, r24	; 18
+     e58:	05 c0       	rjmp	.+10     	; 0xe64 <DC_LEFT+0x20>
+		break;
+
+	case CW:
+		DC_MOTOR_LEFT_PORT |= (1 << DC_MOTOR_LEFT_IN1);
+     e5a:	97 9a       	sbi	0x12, 7	; 18
+		DC_MOTOR_LEFT_PORT &= ~(1 << DC_MOTOR_LEFT_IN2);
+     e5c:	96 98       	cbi	0x12, 6	; 18
+     e5e:	02 c0       	rjmp	.+4      	; 0xe64 <DC_LEFT+0x20>
+		break;
+
+	case A_CW:
+		DC_MOTOR_LEFT_PORT |= (1 << DC_MOTOR_LEFT_IN2);
+     e60:	96 9a       	sbi	0x12, 6	; 18
+		DC_MOTOR_LEFT_PORT &= ~(1 << DC_MOTOR_LEFT_IN1);
+     e62:	97 98       	cbi	0x12, 7	; 18
+		break;
+	}
+
+	/* Set speed (0 - 100%) */
+	OCR1A = (uint8)((speed * 255) / 100);
+     e64:	8f ef       	ldi	r24, 0xFF	; 255
+     e66:	68 9f       	mul	r22, r24
+     e68:	c0 01       	movw	r24, r0
+     e6a:	11 24       	eor	r1, r1
+     e6c:	64 e6       	ldi	r22, 0x64	; 100
+     e6e:	70 e0       	ldi	r23, 0x00	; 0
+     e70:	0e 94 a4 08 	call	0x1148	; 0x1148 <__divmodhi4>
+     e74:	70 e0       	ldi	r23, 0x00	; 0
+     e76:	7b bd       	out	0x2b, r23	; 43
+     e78:	6a bd       	out	0x2a, r22	; 42
+}
+     e7a:	08 95       	ret
+
+00000e7c <IR1_init>:
+#include "IR_sensor.h"
+
+// ==== INIT Functions ====
+void IR1_init(void){ IR_DDR &= ~(1<<IR1_PIN); }
+     e7c:	a0 98       	cbi	0x14, 0	; 20
+     e7e:	08 95       	ret
+
+00000e80 <IR3_init>:
+void IR3_init(void){ IR_DDR &= ~(1<<IR3_PIN); }
+     e80:	a2 98       	cbi	0x14, 2	; 20
+     e82:	08 95       	ret
+
+00000e84 <IR8_init>:
+void IR8_init(void){ IR_DDR &= ~(1<<IR8_PIN); }
+     e84:	a7 98       	cbi	0x14, 7	; 20
+     e86:	08 95       	ret
+
+00000e88 <IR_FRONT_LEFT_init>:
+
+void IR_FRONT_LEFT_init(void){ IR_DDR &= ~(1<<IR_FRONT_LEFT_PIN); }
+     e88:	a4 98       	cbi	0x14, 4	; 20
+     e8a:	08 95       	ret
+
+00000e8c <IR_FRONT_RIGHT_init>:
+void IR_FRONT_RIGHT_init(void){ IR_DDR &= ~(1<<IR_FRONT_RIGHT_PIN); }
+     e8c:	a3 98       	cbi	0x14, 3	; 20
+     e8e:	08 95       	ret
+
+00000e90 <IR1_getState>:
+
+
+
+// ==== GET STATE Functions ====
+uint8 IR1_getState(void){ return (IR_PIN_REG & (1<<IR1_PIN)) ? LAQT : MS_LAQT; }
+     e90:	83 b3       	in	r24, 0x13	; 19
+     e92:	80 95       	com	r24
+     e94:	81 70       	andi	r24, 0x01	; 1
+     e96:	08 95       	ret
+
+00000e98 <IR3_getState>:
+uint8 IR3_getState(void){ return (IR_PIN_REG & (1<<IR3_PIN)) ? LAQT : MS_LAQT; }
+     e98:	83 b3       	in	r24, 0x13	; 19
+     e9a:	86 95       	lsr	r24
+     e9c:	86 95       	lsr	r24
+     e9e:	80 95       	com	r24
+     ea0:	81 70       	andi	r24, 0x01	; 1
+     ea2:	08 95       	ret
+
+00000ea4 <IR8_getState>:
+uint8 IR8_getState(void){ return (IR_PIN_REG & (1<<IR8_PIN)) ? LAQT : MS_LAQT; }
+     ea4:	83 b3       	in	r24, 0x13	; 19
+     ea6:	80 95       	com	r24
+     ea8:	88 1f       	adc	r24, r24
+     eaa:	88 27       	eor	r24, r24
+     eac:	88 1f       	adc	r24, r24
+     eae:	08 95       	ret
+
+00000eb0 <IR_FRONT_LEFT_getState>:
+uint8 IR_FRONT_LEFT_getState(void){ return (IR_PIN_REG & (1<<IR_FRONT_LEFT_PIN)) ? LAQT : MS_LAQT; }
+     eb0:	83 b3       	in	r24, 0x13	; 19
+     eb2:	82 95       	swap	r24
+     eb4:	8f 70       	andi	r24, 0x0F	; 15
+     eb6:	80 95       	com	r24
+     eb8:	81 70       	andi	r24, 0x01	; 1
+     eba:	08 95       	ret
+
+00000ebc <IR_FRONT_RIGHT_getState>:
+uint8 IR_FRONT_RIGHT_getState(void){ return (IR_PIN_REG & (1<<IR_FRONT_RIGHT_PIN)) ? LAQT : MS_LAQT; }
+     ebc:	83 b3       	in	r24, 0x13	; 19
+     ebe:	86 95       	lsr	r24
+     ec0:	86 95       	lsr	r24
+     ec2:	86 95       	lsr	r24
+     ec4:	80 95       	com	r24
+     ec6:	81 70       	andi	r24, 0x01	; 1
+     ec8:	08 95       	ret
+
+00000eca <main>:
+#include "../HAL/dc_motor.h"
+#include "../HAL/ir_sensor.h"
+#include <stdbool.h>
+#include"../Micro_Mouse_Services/micro_mouse.h"
+extern uint8 wsl;
+int main(void) {
+     eca:	af 92       	push	r10
+     ecc:	bf 92       	push	r11
+     ece:	cf 92       	push	r12
+     ed0:	df 92       	push	r13
+     ed2:	ef 92       	push	r14
+     ed4:	ff 92       	push	r15
+     ed6:	0f 93       	push	r16
+     ed8:	1f 93       	push	r17
+     eda:	cf 93       	push	r28
+     edc:	df 93       	push	r29
+
+    IR1_init();  IR3_init();
+     ede:	0e 94 3e 07 	call	0xe7c	; 0xe7c <IR1_init>
+     ee2:	0e 94 40 07 	call	0xe80	; 0xe80 <IR3_init>
+    IR8_init();
+     ee6:	0e 94 42 07 	call	0xe84	; 0xe84 <IR8_init>
+    Motors_init();
+     eea:	0e 94 f1 06 	call	0xde2	; 0xde2 <Motors_init>
+    IR_FRONT_LEFT_init();
+     eee:	0e 94 44 07 	call	0xe88	; 0xe88 <IR_FRONT_LEFT_init>
+    IR_FRONT_RIGHT_getState();
+     ef2:	0e 94 5e 07 	call	0xebc	; 0xebc <IR_FRONT_RIGHT_getState>
+    sei();
+     ef6:	78 94       	sei
+    DDRB|=(1<<1);
+     ef8:	b9 9a       	sbi	0x17, 1	; 23
+    PORTB&=~(1<<1);
+     efa:	c1 98       	cbi	0x18, 1	; 24
+     efc:	21 e4       	ldi	r18, 0x41	; 65
+     efe:	31 e0       	ldi	r19, 0x01	; 1
+     f00:	80 e0       	ldi	r24, 0x00	; 0
+     f02:	90 e0       	ldi	r25, 0x00	; 0
+     f04:	0b c0       	rjmp	.+22     	; 0xf1c <main+0x52>
+
+    // اعادة تهيئة المتاهة
+    for (uint8 x = 0; x < MAZE_SIZE; x++)
+        for (uint8 y = 0; y < MAZE_SIZE; y++)
+            maze[x][y] = 0;
+     f06:	11 92       	st	Z+, r1
+    DDRB|=(1<<1);
+    PORTB&=~(1<<1);
+
+    // اعادة تهيئة المتاهة
+    for (uint8 x = 0; x < MAZE_SIZE; x++)
+        for (uint8 y = 0; y < MAZE_SIZE; y++)
+     f08:	e2 17       	cp	r30, r18
+     f0a:	f3 07       	cpc	r31, r19
+     f0c:	e1 f7       	brne	.-8      	; 0xf06 <main+0x3c>
+     f0e:	01 96       	adiw	r24, 0x01	; 1
+     f10:	9f 01       	movw	r18, r30
+     f12:	28 5f       	subi	r18, 0xF8	; 248
+     f14:	3f 4f       	sbci	r19, 0xFF	; 255
+    sei();
+    DDRB|=(1<<1);
+    PORTB&=~(1<<1);
+
+    // اعادة تهيئة المتاهة
+    for (uint8 x = 0; x < MAZE_SIZE; x++)
+     f16:	88 30       	cpi	r24, 0x08	; 8
+     f18:	91 05       	cpc	r25, r1
+     f1a:	49 f0       	breq	.+18     	; 0xf2e <main+0x64>
+     f1c:	fc 01       	movw	r30, r24
+     f1e:	43 e0       	ldi	r20, 0x03	; 3
+     f20:	ee 0f       	add	r30, r30
+     f22:	ff 1f       	adc	r31, r31
+     f24:	4a 95       	dec	r20
+     f26:	e1 f7       	brne	.-8      	; 0xf20 <main+0x56>
+     f28:	e7 5c       	subi	r30, 0xC7	; 199
+     f2a:	fe 4f       	sbci	r31, 0xFE	; 254
+     f2c:	ec cf       	rjmp	.-40     	; 0xf06 <main+0x3c>
+        for (uint8 y = 0; y < MAZE_SIZE; y++)
+            maze[x][y] = 0;
+
+    pos_x = 0; pos_y = 0; heading = 0;
+     f2e:	10 92 73 00 	sts	0x0073, r1
+     f32:	10 92 72 00 	sts	0x0072, r1
+     f36:	10 92 75 00 	sts	0x0075, r1
+     f3a:	10 92 74 00 	sts	0x0074, r1
+     f3e:	10 92 76 00 	sts	0x0076, r1
+    floodfill(); // حساب اولي
+     f42:	0e 94 49 00 	call	0x92	; 0x92 <floodfill>
+
+    // فتح البداية دايماً (أمان)
+    maze[0][0] = 0;
+     f46:	10 92 39 01 	sts	0x0139, r1
+     f4a:	c0 e9       	ldi	r28, 0x90	; 144
+     f4c:	d1 e0       	ldi	r29, 0x01	; 1
+
+    // حلقة الاستكشاف
+    while (1) {
+        uint8 changed = update_walls();
+     f4e:	0e 94 e2 04 	call	0x9c4	; 0x9c4 <update_walls>
+        if (changed) {
+     f52:	88 23       	and	r24, r24
+     f54:	11 f0       	breq	.+4      	; 0xf5a <main+0x90>
+            floodfill();
+     f56:	0e 94 49 00 	call	0x92	; 0x92 <floodfill>
+        }
+
+        uint8 next_dir = choose_next_direction();
+     f5a:	0e 94 22 01 	call	0x244	; 0x244 <choose_next_direction>
+
+        rotate_to_dir(next_dir);
+     f5e:	0e 94 56 03 	call	0x6ac	; 0x6ac <rotate_to_dir>
+
+        int fx = pos_x + dx[heading];
+     f62:	e0 91 76 00 	lds	r30, 0x0076
+     f66:	f0 e0       	ldi	r31, 0x00	; 0
+     f68:	ee 0f       	add	r30, r30
+     f6a:	ff 1f       	adc	r31, r31
+     f6c:	df 01       	movw	r26, r30
+     f6e:	a0 5a       	subi	r26, 0xA0	; 160
+     f70:	bf 4f       	sbci	r27, 0xFF	; 255
+     f72:	0d 90       	ld	r0, X+
+     f74:	bc 91       	ld	r27, X
+     f76:	a0 2d       	mov	r26, r0
+     f78:	80 91 72 00 	lds	r24, 0x0072
+     f7c:	90 91 73 00 	lds	r25, 0x0073
+     f80:	a8 0f       	add	r26, r24
+     f82:	b9 1f       	adc	r27, r25
+        int fy = pos_y + dy[heading];
+     f84:	80 91 74 00 	lds	r24, 0x0074
+     f88:	90 91 75 00 	lds	r25, 0x0075
+     f8c:	e8 59       	subi	r30, 0x98	; 152
+     f8e:	ff 4f       	sbci	r31, 0xFF	; 255
+     f90:	01 90       	ld	r0, Z+
+     f92:	f0 81       	ld	r31, Z
+     f94:	e0 2d       	mov	r30, r0
+        if (fx >= 0 && fx < MAZE_SIZE && fy >= 0 && fy < MAZE_SIZE && maze[fx][fy] == 0) {
+     f96:	a8 30       	cpi	r26, 0x08	; 8
+     f98:	b1 05       	cpc	r27, r1
+     f9a:	b0 f4       	brcc	.+44     	; 0xfc8 <main+0xfe>
+        uint8 next_dir = choose_next_direction();
+
+        rotate_to_dir(next_dir);
+
+        int fx = pos_x + dx[heading];
+        int fy = pos_y + dy[heading];
+     f9c:	e8 0f       	add	r30, r24
+     f9e:	f9 1f       	adc	r31, r25
+        if (fx >= 0 && fx < MAZE_SIZE && fy >= 0 && fy < MAZE_SIZE && maze[fx][fy] == 0) {
+     fa0:	f7 fd       	sbrc	r31, 7
+     fa2:	12 c0       	rjmp	.+36     	; 0xfc8 <main+0xfe>
+     fa4:	e8 30       	cpi	r30, 0x08	; 8
+     fa6:	f1 05       	cpc	r31, r1
+     fa8:	7c f4       	brge	.+30     	; 0xfc8 <main+0xfe>
+     faa:	13 e0       	ldi	r17, 0x03	; 3
+     fac:	aa 0f       	add	r26, r26
+     fae:	bb 1f       	adc	r27, r27
+     fb0:	1a 95       	dec	r17
+     fb2:	e1 f7       	brne	.-8      	; 0xfac <main+0xe2>
+     fb4:	ae 0f       	add	r26, r30
+     fb6:	bf 1f       	adc	r27, r31
+     fb8:	a7 5c       	subi	r26, 0xC7	; 199
+     fba:	be 4f       	sbci	r27, 0xFE	; 254
+     fbc:	8c 91       	ld	r24, X
+     fbe:	88 23       	and	r24, r24
+     fc0:	19 f4       	brne	.+6      	; 0xfc8 <main+0xfe>
+            move_forward_one_cell();
+     fc2:	0e 94 04 04 	call	0x808	; 0x808 <move_forward_one_cell>
+     fc6:	04 c0       	rjmp	.+8      	; 0xfd0 <main+0x106>
+        } else {
+            update_walls();
+     fc8:	0e 94 e2 04 	call	0x9c4	; 0x9c4 <update_walls>
+            floodfill();
+     fcc:	0e 94 49 00 	call	0x92	; 0x92 <floodfill>
+     fd0:	80 eb       	ldi	r24, 0xB0	; 176
+     fd2:	94 e0       	ldi	r25, 0x04	; 4
+     fd4:	fe 01       	movw	r30, r28
+     fd6:	31 97       	sbiw	r30, 0x01	; 1
+     fd8:	f1 f7       	brne	.-4      	; 0xfd6 <main+0x10c>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+     fda:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+     fdc:	d9 f7       	brne	.-10     	; 0xfd4 <main+0x10a>
+        }
+
+        _delay_ms(120);
+
+        // شرط التوقف عند الهدف (المراكز 3,3 3,4 4,3 4,4)
+        if (((pos_x == 3 || pos_x == 4) && (pos_y == 3 || pos_y == 4)) && maze[pos_x][pos_y] == 0) {
+     fde:	20 91 72 00 	lds	r18, 0x0072
+     fe2:	30 91 73 00 	lds	r19, 0x0073
+     fe6:	c9 01       	movw	r24, r18
+     fe8:	03 97       	sbiw	r24, 0x03	; 3
+     fea:	02 97       	sbiw	r24, 0x02	; 2
+     fec:	08 f0       	brcs	.+2      	; 0xff0 <main+0x126>
+     fee:	af cf       	rjmp	.-162    	; 0xf4e <main+0x84>
+     ff0:	60 91 74 00 	lds	r22, 0x0074
+     ff4:	70 91 75 00 	lds	r23, 0x0075
+     ff8:	cb 01       	movw	r24, r22
+     ffa:	03 97       	sbiw	r24, 0x03	; 3
+     ffc:	02 97       	sbiw	r24, 0x02	; 2
+     ffe:	08 f0       	brcs	.+2      	; 0x1002 <main+0x138>
+    1000:	a6 cf       	rjmp	.-180    	; 0xf4e <main+0x84>
+    1002:	f9 01       	movw	r30, r18
+    1004:	a3 e0       	ldi	r26, 0x03	; 3
+    1006:	ee 0f       	add	r30, r30
+    1008:	ff 1f       	adc	r31, r31
+    100a:	aa 95       	dec	r26
+    100c:	e1 f7       	brne	.-8      	; 0x1006 <main+0x13c>
+    100e:	e6 0f       	add	r30, r22
+    1010:	f7 1f       	adc	r31, r23
+    1012:	e7 5c       	subi	r30, 0xC7	; 199
+    1014:	fe 4f       	sbci	r31, 0xFE	; 254
+    1016:	80 81       	ld	r24, Z
+    1018:	88 23       	and	r24, r24
+    101a:	09 f0       	breq	.+2      	; 0x101e <main+0x154>
+    101c:	98 cf       	rjmp	.-208    	; 0xf4e <main+0x84>
+            // ابني طريق الذهاب (لو عايز)
+            build_shortest_path(pos_x, pos_y);
+    101e:	c9 01       	movw	r24, r18
+    1020:	0e 94 a9 01 	call	0x352	; 0x352 <build_shortest_path>
+
+            // فتح البداية أمان تاني
+            maze[0][0] = 0;
+    1024:	10 92 39 01 	sts	0x0139, r1
+    1028:	21 e0       	ldi	r18, 0x01	; 1
+    102a:	31 e0       	ldi	r19, 0x01	; 1
+    102c:	80 e0       	ldi	r24, 0x00	; 0
+    102e:	90 e0       	ldi	r25, 0x00	; 0
+
+            // Flood fill جديد يكون هدفه نقطة البداية (0,0)
+            for (uint8 x = 0; x < MAZE_SIZE; x++)
+                for (uint8 y = 0; y < MAZE_SIZE; y++)
+                    distance[x][y] = 255;
+    1030:	4f ef       	ldi	r20, 0xFF	; 255
+    1032:	0b c0       	rjmp	.+22     	; 0x104a <main+0x180>
+    1034:	41 93       	st	Z+, r20
+            // فتح البداية أمان تاني
+            maze[0][0] = 0;
+
+            // Flood fill جديد يكون هدفه نقطة البداية (0,0)
+            for (uint8 x = 0; x < MAZE_SIZE; x++)
+                for (uint8 y = 0; y < MAZE_SIZE; y++)
+    1036:	e2 17       	cp	r30, r18
+    1038:	f3 07       	cpc	r31, r19
+    103a:	e1 f7       	brne	.-8      	; 0x1034 <main+0x16a>
+    103c:	01 96       	adiw	r24, 0x01	; 1
+    103e:	9f 01       	movw	r18, r30
+    1040:	28 5f       	subi	r18, 0xF8	; 248
+    1042:	3f 4f       	sbci	r19, 0xFF	; 255
+
+            // فتح البداية أمان تاني
+            maze[0][0] = 0;
+
+            // Flood fill جديد يكون هدفه نقطة البداية (0,0)
+            for (uint8 x = 0; x < MAZE_SIZE; x++)
+    1044:	88 30       	cpi	r24, 0x08	; 8
+    1046:	91 05       	cpc	r25, r1
+    1048:	49 f0       	breq	.+18     	; 0x105c <main+0x192>
+    104a:	fc 01       	movw	r30, r24
+    104c:	53 e0       	ldi	r21, 0x03	; 3
+    104e:	ee 0f       	add	r30, r30
+    1050:	ff 1f       	adc	r31, r31
+    1052:	5a 95       	dec	r21
+    1054:	e1 f7       	brne	.-8      	; 0x104e <main+0x184>
+    1056:	e7 50       	subi	r30, 0x07	; 7
+    1058:	ff 4f       	sbci	r31, 0xFF	; 255
+    105a:	ec cf       	rjmp	.-40     	; 0x1034 <main+0x16a>
+                for (uint8 y = 0; y < MAZE_SIZE; y++)
+                    distance[x][y] = 255;
+            distance[0][0] = 0;
+    105c:	10 92 f9 00 	sts	0x00F9, r1
+            uint16 front = 0, rear = 0;
+            queue_x[rear] = 0;
+    1060:	10 92 79 01 	sts	0x0179, r1
+            queue_y[rear] = 0;
+    1064:	10 92 b9 00 	sts	0x00B9, r1
+    1068:	ee 24       	eor	r14, r14
+    106a:	ff 24       	eor	r15, r15
+    106c:	01 e0       	ldi	r16, 0x01	; 1
+    106e:	10 e0       	ldi	r17, 0x00	; 0
+            rear++;
+            while (front < rear) {
+                uint8 x = queue_x[front];
+    1070:	f7 01       	movw	r30, r14
+    1072:	e7 58       	subi	r30, 0x87	; 135
+    1074:	fe 4f       	sbci	r31, 0xFE	; 254
+    1076:	90 81       	ld	r25, Z
+                uint8 y = queue_y[front];
+    1078:	f7 01       	movw	r30, r14
+    107a:	e7 54       	subi	r30, 0x47	; 71
+    107c:	ff 4f       	sbci	r31, 0xFF	; 255
+    107e:	80 81       	ld	r24, Z
+                front++;
+    1080:	08 94       	sec
+    1082:	e1 1c       	adc	r14, r1
+    1084:	f1 1c       	adc	r15, r1
+    1086:	c0 e0       	ldi	r28, 0x00	; 0
+    1088:	d0 e0       	ldi	r29, 0x00	; 0
+                for (uint8 dir = 0; dir < 4; dir++) {
+                    int nx = x + dx[dir];
+    108a:	a9 2e       	mov	r10, r25
+    108c:	bb 24       	eor	r11, r11
+                    int ny = y + dy[dir];
+    108e:	c8 2e       	mov	r12, r24
+    1090:	dd 24       	eor	r13, r13
+                    if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE &&
+                            maze[nx][ny] == 0 && distance[nx][ny] == 255) {
+                        distance[nx][ny] = distance[x][y] + 1;
+    1092:	d5 01       	movw	r26, r10
+    1094:	93 e0       	ldi	r25, 0x03	; 3
+    1096:	aa 0f       	add	r26, r26
+    1098:	bb 1f       	adc	r27, r27
+    109a:	9a 95       	dec	r25
+    109c:	e1 f7       	brne	.-8      	; 0x1096 <main+0x1cc>
+    109e:	ac 0d       	add	r26, r12
+    10a0:	bd 1d       	adc	r27, r13
+    10a2:	a7 50       	subi	r26, 0x07	; 7
+    10a4:	bf 4f       	sbci	r27, 0xFF	; 255
+            while (front < rear) {
+                uint8 x = queue_x[front];
+                uint8 y = queue_y[front];
+                front++;
+                for (uint8 dir = 0; dir < 4; dir++) {
+                    int nx = x + dx[dir];
+    10a6:	fe 01       	movw	r30, r28
+    10a8:	e0 5a       	subi	r30, 0xA0	; 160
+    10aa:	ff 4f       	sbci	r31, 0xFF	; 255
+    10ac:	60 81       	ld	r22, Z
+    10ae:	71 81       	ldd	r23, Z+1	; 0x01
+    10b0:	6a 0d       	add	r22, r10
+    10b2:	7b 1d       	adc	r23, r11
+                    int ny = y + dy[dir];
+    10b4:	fe 01       	movw	r30, r28
+    10b6:	e8 59       	subi	r30, 0x98	; 152
+    10b8:	ff 4f       	sbci	r31, 0xFF	; 255
+    10ba:	01 90       	ld	r0, Z+
+    10bc:	f0 81       	ld	r31, Z
+    10be:	e0 2d       	mov	r30, r0
+                    if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE &&
+    10c0:	68 30       	cpi	r22, 0x08	; 8
+    10c2:	71 05       	cpc	r23, r1
+    10c4:	48 f5       	brcc	.+82     	; 0x1118 <main+0x24e>
+                uint8 x = queue_x[front];
+                uint8 y = queue_y[front];
+                front++;
+                for (uint8 dir = 0; dir < 4; dir++) {
+                    int nx = x + dx[dir];
+                    int ny = y + dy[dir];
+    10c6:	a6 01       	movw	r20, r12
+    10c8:	4e 0f       	add	r20, r30
+    10ca:	5f 1f       	adc	r21, r31
+                    if (nx >= 0 && nx < MAZE_SIZE && ny >= 0 && ny < MAZE_SIZE &&
+    10cc:	57 fd       	sbrc	r21, 7
+    10ce:	24 c0       	rjmp	.+72     	; 0x1118 <main+0x24e>
+    10d0:	48 30       	cpi	r20, 0x08	; 8
+    10d2:	51 05       	cpc	r21, r1
+    10d4:	0c f5       	brge	.+66     	; 0x1118 <main+0x24e>
+    10d6:	9b 01       	movw	r18, r22
+    10d8:	83 e0       	ldi	r24, 0x03	; 3
+    10da:	22 0f       	add	r18, r18
+    10dc:	33 1f       	adc	r19, r19
+    10de:	8a 95       	dec	r24
+    10e0:	e1 f7       	brne	.-8      	; 0x10da <main+0x210>
+    10e2:	24 0f       	add	r18, r20
+    10e4:	35 1f       	adc	r19, r21
+    10e6:	f9 01       	movw	r30, r18
+    10e8:	e7 5c       	subi	r30, 0xC7	; 199
+    10ea:	fe 4f       	sbci	r31, 0xFE	; 254
+    10ec:	80 81       	ld	r24, Z
+    10ee:	88 23       	and	r24, r24
+    10f0:	99 f4       	brne	.+38     	; 0x1118 <main+0x24e>
+    10f2:	f9 01       	movw	r30, r18
+    10f4:	e7 50       	subi	r30, 0x07	; 7
+    10f6:	ff 4f       	sbci	r31, 0xFF	; 255
+    10f8:	80 81       	ld	r24, Z
+    10fa:	8f 3f       	cpi	r24, 0xFF	; 255
+    10fc:	69 f4       	brne	.+26     	; 0x1118 <main+0x24e>
+                            maze[nx][ny] == 0 && distance[nx][ny] == 255) {
+                        distance[nx][ny] = distance[x][y] + 1;
+    10fe:	8c 91       	ld	r24, X
+    1100:	8f 5f       	subi	r24, 0xFF	; 255
+    1102:	80 83       	st	Z, r24
+                        queue_x[rear] = nx;
+    1104:	f8 01       	movw	r30, r16
+    1106:	e7 58       	subi	r30, 0x87	; 135
+    1108:	fe 4f       	sbci	r31, 0xFE	; 254
+    110a:	60 83       	st	Z, r22
+                        queue_y[rear] = ny;
+    110c:	f8 01       	movw	r30, r16
+    110e:	e7 54       	subi	r30, 0x47	; 71
+    1110:	ff 4f       	sbci	r31, 0xFF	; 255
+    1112:	40 83       	st	Z, r20
+                        rear++;
+    1114:	0f 5f       	subi	r16, 0xFF	; 255
+    1116:	1f 4f       	sbci	r17, 0xFF	; 255
+    1118:	22 96       	adiw	r28, 0x02	; 2
+            rear++;
+            while (front < rear) {
+                uint8 x = queue_x[front];
+                uint8 y = queue_y[front];
+                front++;
+                for (uint8 dir = 0; dir < 4; dir++) {
+    111a:	c8 30       	cpi	r28, 0x08	; 8
+    111c:	d1 05       	cpc	r29, r1
+    111e:	19 f6       	brne	.-122    	; 0x10a6 <main+0x1dc>
+            distance[0][0] = 0;
+            uint16 front = 0, rear = 0;
+            queue_x[rear] = 0;
+            queue_y[rear] = 0;
+            rear++;
+            while (front < rear) {
+    1120:	e0 16       	cp	r14, r16
+    1122:	f1 06       	cpc	r15, r17
+    1124:	08 f4       	brcc	.+2      	; 0x1128 <main+0x25e>
+    1126:	a4 cf       	rjmp	.-184    	; 0x1070 <main+0x1a6>
+                    }
+                }
+            }
+
+            // ابني المسار من مكانك الحالي (الهدف) لنقطة البداية
+            build_shortest_path_reverse(pos_x, pos_y);
+    1128:	60 91 74 00 	lds	r22, 0x0074
+    112c:	70 91 75 00 	lds	r23, 0x0075
+    1130:	80 91 72 00 	lds	r24, 0x0072
+    1134:	90 91 73 00 	lds	r25, 0x0073
+    1138:	0e 94 8c 02 	call	0x518	; 0x518 <build_shortest_path_reverse>
+
+            // نفذ طريق الرجوع من أقصر مسار فعلي
+            replay_path();
+    113c:	0e 94 72 04 	call	0x8e4	; 0x8e4 <replay_path>
+
+            goal_reached = 1;
+    1140:	81 e0       	ldi	r24, 0x01	; 1
+    1142:	80 93 71 00 	sts	0x0071, r24
+    1146:	ff cf       	rjmp	.-2      	; 0x1146 <main+0x27c>
+
+00001148 <__divmodhi4>:
+    1148:	97 fb       	bst	r25, 7
+    114a:	09 2e       	mov	r0, r25
+    114c:	07 26       	eor	r0, r23
+    114e:	0a d0       	rcall	.+20     	; 0x1164 <__divmodhi4_neg1>
+    1150:	77 fd       	sbrc	r23, 7
+    1152:	04 d0       	rcall	.+8      	; 0x115c <__divmodhi4_neg2>
+    1154:	0c d0       	rcall	.+24     	; 0x116e <__udivmodhi4>
+    1156:	06 d0       	rcall	.+12     	; 0x1164 <__divmodhi4_neg1>
+    1158:	00 20       	and	r0, r0
+    115a:	1a f4       	brpl	.+6      	; 0x1162 <__divmodhi4_exit>
+
+0000115c <__divmodhi4_neg2>:
+    115c:	70 95       	com	r23
+    115e:	61 95       	neg	r22
+    1160:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00001162 <__divmodhi4_exit>:
+    1162:	08 95       	ret
+
+00001164 <__divmodhi4_neg1>:
+    1164:	f6 f7       	brtc	.-4      	; 0x1162 <__divmodhi4_exit>
+    1166:	90 95       	com	r25
+    1168:	81 95       	neg	r24
+    116a:	9f 4f       	sbci	r25, 0xFF	; 255
+    116c:	08 95       	ret
+
+0000116e <__udivmodhi4>:
+    116e:	aa 1b       	sub	r26, r26
+    1170:	bb 1b       	sub	r27, r27
+    1172:	51 e1       	ldi	r21, 0x11	; 17
+    1174:	07 c0       	rjmp	.+14     	; 0x1184 <__udivmodhi4_ep>
+
+00001176 <__udivmodhi4_loop>:
+    1176:	aa 1f       	adc	r26, r26
+    1178:	bb 1f       	adc	r27, r27
+    117a:	a6 17       	cp	r26, r22
+    117c:	b7 07       	cpc	r27, r23
+    117e:	10 f0       	brcs	.+4      	; 0x1184 <__udivmodhi4_ep>
+    1180:	a6 1b       	sub	r26, r22
+    1182:	b7 0b       	sbc	r27, r23
+
+00001184 <__udivmodhi4_ep>:
+    1184:	88 1f       	adc	r24, r24
+    1186:	99 1f       	adc	r25, r25
+    1188:	5a 95       	dec	r21
+    118a:	a9 f7       	brne	.-22     	; 0x1176 <__udivmodhi4_loop>
+    118c:	80 95       	com	r24
+    118e:	90 95       	com	r25
+    1190:	bc 01       	movw	r22, r24
+    1192:	cd 01       	movw	r24, r26
+    1194:	08 95       	ret
+
+00001196 <_exit>:
+    1196:	f8 94       	cli
+
+00001198 <__stop_program>:
+    1198:	ff cf       	rjmp	.-2      	; 0x1198 <__stop_program>
